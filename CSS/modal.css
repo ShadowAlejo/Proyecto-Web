@@ -1,0 +1,73 @@
+/* Estilo del modal */
+.modal.hidden {
+    display: none;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 1rem; /* Espaciado interno del modal */
+    overflow: hidden; /* Evitar que el contenido salga del modal */
+}
+
+/* Estilo del contenido del modal */
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    max-width: 400px; /* Ancho máximo del modal */
+    width: 100%;
+    max-height: 90vh; /* Limitar la altura del modal al 90% de la ventana */
+    overflow-y: auto; /* Permitir el desplazamiento vertical dentro del modal */
+}
+
+@media (min-width: 640px) {
+    .modal-content {
+        max-width: 500px; /* Ancho máximo en pantallas medianas */
+    }
+}
+
+@media (min-width: 768px) {
+    .modal-content {
+        max-width: 600px; /* Ancho máximo en pantallas grandes */
+    }
+}
+
+@media (min-width: 1024px) {
+    .modal-content {
+        max-width: 700px; /* Ancho máximo en pantallas extra grandes */
+    }
+}
+
+/* Estilo para el botón de cierre en la esquina superior derecha */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Responsividad para la imagen de vista previa */
+#previewImg {
+    max-width: 100%; /* Asegura que la imagen no se salga del contenedor */
+    height: auto;
+    margin-top: 1rem;
+}

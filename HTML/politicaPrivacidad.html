@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/CSS/output.css" rel="stylesheet">
+    <title>Politica y Privacidad</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+<body class="bg-zinc-100">
+    
+    <!--Navbar-->
+    <nav class="navBar">
+        <div class="navBarLogoContainer">
+            <span class="navBarLogoText">Tienda de Ordenadores</span>
+        </div>
+        <div class="navBarButtonContainer">
+            <button id="boton" class="navBarButton">
+                <svg class="navBarButtonSvg" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <title>Menu</title>
+                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                </svg>
+            </button>
+        </div>
+        <div id="menu" class="navBarMenu hidden lg:block">
+            <div class="navBarMenuItemContainer">
+                <a href="/HTML/index.html" class="navBarMenuItem">Inicio</a>
+                <a href="/HTML/productos.html" class="navBarMenuItem">Productos</a>
+                <a href="/HTML/contanto.html" class="navBarMenuItem">Contacto</a>
+                <a href="/HTML/sobreNosotros.html" class="navBarMenuItem">Sobre Nosotros</a> 
+                <a href="/HTML/login.html" id="loginNav" class="navBarMenuItem">Iniciar Sesión</a>
+                <a href="/HTML/register.html" id="registerNav" class="navBarMenuItem">Registrarse</a>
+                <a href="#" id="userNav" class="navBarMenuItem hidden"></a> <!-- Este enlace mostrará el nombre del usuario -->
+                <a href="#" id="logoutNav" class="navBarMenuItem hidden">Cerrar Sesión</a> <!-- Este enlace cerrará la sesión -->
+                <div class="navBarCartContainer relative inline-block">
+                    <a href="/HTML/carrito.html" id="openCartModal" class="navBarCart relative">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cartCount" class="cartCount hidden">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>        
+    </nav>
+
+    <!--Políticas de Privacidad-->
+    <div class="privacyContainer" style="width: 85%;">
+        <div class="privacySection">
+            <h1 class="privacyTitle">Política de Privacidad</h1>
+            <div class="faqItem">
+                <h2 class="privacySubtitle">1. Introducción</h2>
+                <p class="privacyParagraph">En nuestra tienda en línea, valoramos tu privacidad y estamos comprometidos a proteger tu información personal. Esta política de privacidad describe cómo recopilamos, usamos y protegemos tus datos.</p>
+            </div>
+            <div class="faqItem">
+                <h2 class="privacySubtitle">2. Información que Recopilamos</h2>
+                <p class="privacyParagraph">Recopilamos información personal que nos proporcionas al realizar una compra, registrarte en nuestro sitio, suscribirte a nuestro boletín o completar un formulario. Esto puede incluir tu nombre, dirección de correo electrónico, dirección de envío y detalles de pago.</p>
+            </div>
+            <div class="faqItem">
+                <h2 class="privacySubtitle">3. Uso de la Información</h2>
+                <p class="privacyParagraph">Utilizamos la información recopilada para procesar tus pedidos, mejorar la experiencia del usuario, enviar actualizaciones y promociones, y para otros fines comerciales legítimos. No compartimos tu información personal con terceros, excepto cuando sea necesario para procesar tu pedido o cumplir con obligaciones legales.</p>
+            </div>
+            <div class="faqItem">
+                <h2 class="privacySubtitle">4. Protección de la Información</h2>
+                <p class="privacyParagraph">Implementamos una variedad de medidas de seguridad para mantener la seguridad de tu información personal. Utilizamos cifrado SSL para proteger la transmisión de datos sensibles y almacenamos tu información en servidores seguros.</p>
+            </div>
+            <div class="faqItem">
+                <h2 class="privacySubtitle">5. Cookies</h2>
+                <p class="privacyParagraph">Utilizamos cookies para mejorar tu experiencia en nuestro sitio web. Las cookies son pequeños archivos que un sitio o su proveedor de servicios transfiere al disco duro de tu computadora a través de tu navegador web. Puedes optar por desactivar las cookies a través de la configuración de tu navegador.</p>
+            </div>
+            <div class="faqItem">
+                <h2 class="privacySubtitle">6. Derechos del Usuario</h2>
+                <p class="privacyParagraph">Tienes derecho a acceder, rectificar, borrar y oponerte al tratamiento de tus datos personales. Si deseas ejercer estos derechos, por favor contáctanos a través de nuestro formulario de contacto o enviándonos un correo electrónico a soporte@tienda.com.</p>
+            </div>
+            <div class="faqItem">
+                <h2 class="privacySubtitle">7. Cambios a esta Política</h2>
+                <p class="privacyParagraph">Nos reservamos el derecho de modificar esta política de privacidad en cualquier momento. Las modificaciones entrarán en vigor inmediatamente después de su publicación en el sitio web.</p>
+            </div>
+            <div class="faqItem">
+                <h2 class="privacySubtitle">8. Contacto</h2>
+                <p class="privacyParagraph">Si tienes alguna pregunta o inquietud acerca de esta política de privacidad, por favor contáctanos a través de nuestro formulario de contacto o enviándonos un correo electrónico a soporte@tienda.com.</p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="divFooter">
+            <div class="footerFlex">
+                <div class="footerSection">
+                    <h2 class="footerTitle">Sobre Nosotros</h2>
+                    <p class="footerText mr-8">Somos una tienda de ordenadores dedicada a ofrecer los mejores productos y servicios para satisfacer todas tus necesidades tecnológicas.</p>
+                </div>
+                <!-- Quick Links -->
+                <div class="footerSection">
+                    <h2 class="footerTitle">Enlaces Rápidos</h2>
+                    <ul class="footerList">
+                        <li class="footerListItem"><a href="/HTML/index.html" class="footerLink">Inicio</a></li>
+                        <li class="footerListItem"><a href="/HTML/productos.html" class="footerLink">Productos</a></li>
+                        <li class="footerListItem"><a href="/HTML/sobreNosotros.html" class="footerLink">Sobre Nosotros</a></li>
+                        <li class="footerListItem"><a href="/HTML/contanto.html" class="footerLink">Contacto</a></li>
+                    </ul>
+                </div>
+                <!-- Support -->
+                <div class="footerSection">
+                    <h2 class="footerTitle">Soporte</h2>
+                    <ul class="footerList">
+                        <li class="footerListItem"><a href="/HTML/preguntasFrecuentes.html" class="footerLink">Preguntas Frecuentes</a></li>
+                        <li class="footerListItem"><a href="/HTML/terminosCondiciones.html" class="footerLink">Términos y Condiciones</a></li>
+                        <li class="footerListItem"><a href="/HTML/politicaPrivacidad.html" class="footerLink">Política de Privacidad</a></li>
+                    </ul>
+                </div>
+                <!-- Contact Info -->
+                <div class="footerSection">
+                    <h2 class="footerTitle">Contáctanos</h2>
+                    <p class="footerText mb-2">Teléfono: +123 456 789</p>
+                    <p class="footerText mb-2">Email: info@tiendadeordenadores.com</p>
+                    <p class="footerText">Dirección: Calle Falsa 123, Ciudad, País</p>
+                </div>
+            </div>
+            <div class="footerBottom">
+                &copy; 2024 Tienda de Ordenadores. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+  
+</body>
+
+    <script src="/JS/App.js"></script>
+    <script src="/JS/navbar.js"></script>
+
+</html>

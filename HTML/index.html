@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/CSS/output.css" rel="stylesheet">
+    <link href="/CSS/slider.css" rel="stylesheet">
+    <title>Proyecto Web</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="bg-zinc-100">
+    
+    <!--Navbar-->
+    <nav class="navBar">
+        <div class="navBarLogoContainer">
+            <span class="navBarLogoText">Tienda de Ordenadores</span>
+        </div>
+        <div class="navBarButtonContainer">
+            <button id="boton" class="navBarButton">
+                <svg class="navBarButtonSvg" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <title>Menu</title>
+                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                </svg>
+            </button>
+        </div>
+        <div id="menu" class="navBarMenu hidden lg:block">
+            <div class="navBarMenuItemContainer">
+                <a href="/HTML/index.html" class="navBarMenuItem">Inicio</a>
+                <a href="/HTML/productos.html" class="navBarMenuItem">Productos</a>
+                <a href="/HTML/contanto.html" class="navBarMenuItem">Contacto</a>
+                <a href="/HTML/sobreNosotros.html" class="navBarMenuItem">Sobre Nosotros</a> 
+                <a href="/HTML/login.html" id="loginNav" class="navBarMenuItem">Iniciar Sesión</a>
+                <a href="/HTML/register.html" id="registerNav" class="navBarMenuItem">Registrarse</a>
+                <a href="#" id="userNav" class="navBarMenuItem hidden"></a> <!-- Este enlace mostrará el nombre del usuario -->
+                <a href="#" id="logoutNav" class="navBarMenuItem hidden">Cerrar Sesión</a> <!-- Este enlace cerrará la sesión -->
+                <div class="navBarCartContainer relative inline-block">
+                    <a href="/HTML/carrito.html" id="openCartModal" class="navBarCart relative">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cartCount" class="cartCount hidden">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>        
+    </nav>    
+
+    <!-- Header -->
+    <table class="text-black w-full">
+        <thead class="mx-auto">
+            <tr>
+                <th class="centrar" colspan="3">
+                    <h1 class="bienvenidos">Bienvenidos a la mejor tienda de ordenadores</h1>
+                    <p class="mt-4 text-lg">Encuentra el ordenador perfecto para ti</p>
+                    <a href="/HTML/productos.html" id="verProductos" class="btnVerProductos">Ver Productos</a>
+                </th>
+            </tr>
+        </thead>
+    </table>
+
+    <!--Slider-->
+    <div class="slider mx-auto xl:mx-auto">
+        <div class="slide slide-active">
+            <img src="/IMG/slider1.png" alt="Image 1" class="w-auto h-full object-cover">
+        </div>
+        <div class="slide">
+            <img src="/IMG/slider2.png" alt="Image 2" class="w-auto h-full object-cover">
+        </div>
+        <div class="slide">
+            <img src="/IMG/slider3.png" alt="Image 3" class="w-auto h-full object-cover">
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <section class="seccionProductos">
+        <h2 class="nuestroProductos">Productos más comprados</h2>
+        <div class="divSeccionProductos">
+            <!-- Product Card 1 -->
+            <div class="productoCartas">
+                <img src="/IMG/ordenador1_mas_vendido.png" alt="ordenador1" class="imagen">
+                <div class="p-4">
+                    <h3 class="tituloOrdenador">Ordenador Gaming Ultra</h3>
+                    <p class="descripcionRapida">Potente ordenador diseñado para juegos intensivos y tareas multimedia.</p>
+                    <p class="descripcionComponentes"><strong>Componentes:</strong> Procesador Intel Core i9 de última generación, tarjeta gráfica NVIDIA GeForce RTX 3080, 32 GB de RAM DDR4, SSD de 1 TB.</p>
+                    <div class="divBtn">
+                        <span class="precio">$ 1999.99</span>
+                        <button class="btnComprar" data-product="Ordenador Gaming Ultra" data-price="1999.99">Comprar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 2 -->
+            <div class="productoCartas">
+                <img src="/IMG/ordenador2_mas_vendido.png" alt="ordenador2" class="imagen">
+                <div class="p-4">
+                    <h3 class="tituloOrdenador">Ordenador Oficina Pro</h3>
+                    <p class="descripcionRapida">Ideal para trabajos de oficina y multitarea eficiente.</p>
+                    <p class="descripcionComponentes"><strong>Componentes:</strong> Procesador Intel Core i5, tarjeta gráfica integrada Intel UHD, 16 GB de RAM DDR4, SSD de 512 GB.</p>
+                    <div class="divBtn">
+                        <span class="precio">$ 899.99</span>
+                        <button class="btnComprar" data-product="Ordenador Oficina Pro" data-price="899.99">Comprar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 3 -->
+            <div class="productoCartas">
+                <img src="/IMG/ordenador3_mas_vendido.png" alt="ordenador3" class="imagen">
+                <div class="p-4">
+                    <h3 class="tituloOrdenador">Ordenador Diseño Creativo</h3>
+                    <p class="descripcionRapida">Perfecto para diseñadores gráficos y creadores de contenido.</p>
+                    <p class="descripcionComponentes"><strong>Componentes:</strong> Procesador AMD Ryzen 7, tarjeta gráfica NVIDIA GeForce RTX 3070, 32 GB de RAM DDR4, SSD de 1 TB.</p>
+                    <div class="divBtn">
+                        <span class="precio">$ 1799.99</span>
+                        <button class="btnComprar" data-product="Ordenador Diseño Creativo" data-price="1799.99">Comprar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 4 -->
+            <div class="productoCartas">
+                <img src="/IMG/ordenador4_mas_vendido.png" alt="ordenador4" class="imagen">
+                <div class="p-4">
+                    <h3 class="tituloOrdenador">Ordenador Portátil Ultraligero</h3>
+                    <p class="descripcionRapida">Portabilidad y rendimiento en un diseño compacto.</p>
+                    <p class="descripcionComponentes"><strong>Componentes:</strong> Procesador Intel Core i7, tarjeta gráfica integrada Intel Iris Xe, 16 GB de RAM LPDDR4x, SSD de 1 TB.</p>
+                    <div class="divBtn">
+                        <span class="precio">$ 1399.99</span>
+                        <button class="btnComprar" data-product="Ordenador Portátil Ultraligero" data-price="1399.99">Comprar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 5 -->
+            <div class="productoCartas">
+                <img src="/IMG/ordenador5_mas_vendido.png" alt="ordenador5" class="imagen">
+                <div class="p-4">
+                    <h3 class="tituloOrdenador">Ordenador Estación de Trabajo</h3>
+                    <p class="descripcionRapida">Diseñado para tareas de alta exigencia en ingeniería y desarrollo.</p>
+                    <p class="descripcionComponentes"><strong>Componentes:</strong> Procesador Intel Xeon, tarjeta gráfica NVIDIA Quadro RTX 4000, 64 GB de RAM ECC, SSD de 2 TB.</p>
+                    <div class="divBtn">
+                        <span class="precio">$ 2999.99</span>
+                        <button class="btnComprar" data-product="Ordenador Estación de Trabajo" data-price="2999.99">Comprar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 6 -->
+            <div class="productoCartas">
+                <img src="/IMG/ordenador6_mas_vendido.png" alt="ordenador6" class="imagen">
+                <div class="p-4">
+                    <h3 class="tituloOrdenador">Ordenador Compacto Mini</h3>
+                    <p class="descripcionRapida">Potencia y eficiencia en un formato pequeño.</p>
+                    <p class="descripcionComponentes"><strong>Componentes:</strong> Procesador Intel Core i5, tarjeta gráfica integrada Intel UHD, 8 GB de RAM DDR4, SSD de 256 GB.</p>
+                    <div class="divBtn">
+                        <span class="precio">$ 599.99</span>
+                        <button class="btnComprar" data-product="Ordenador Compacto Mini" data-price="599.99">Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--Productos en oferta-->
+    <section class="seccionProductos">
+        <h2 class="nuestroProductos">Productos en Oferta</h2>
+        <div class="divSeccionProductos">
+
+            <!-- Product Card 1 -->
+            <div class="productoCartas">
+                <img src="/IMG/ordenador1_oferta.png" alt="ordenador1" class="imagen">
+                <div class="p-4">
+                    <h3 class="tituloOrdenador">Ordenador de Alto Rendimiento</h3>
+                    <p class="descripcionRapida">Potente ordenador diseñado para tareas intensivas y multimedia.</p>
+                    <p class="descripcionComponentes"><strong>Componentes:</strong> Procesador Intel Core i9 de última generación, tarjeta gráfica NVIDIA GeForce RTX 3080, 32 GB de RAM DDR4, SSD de 1 TB.</p>
+                    <div class="divBtn">
+                        <span class="precio text-red-700">Antes: $ 1999.99</span>
+                        <span class="precio text-green-700" id="precioOferta">Ahora: $ 1600</span>
+                        <button class="btnComprar" data-product="Ordenador de Alto Rendimiento" data-price="1600.00">Comprar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 2 -->
+            <div class="productoCartas">
+                <img src="/IMG/ordenador2_ofertas.png" alt="ordenador2" class="imagen">
+                <div class="p-4">
+                    <h3 class="tituloOrdenador">Ordenador Profesional</h3>
+                    <p class="descripcionRapida">Ideal para trabajos de diseño gráfico y edición de vídeo.</p>
+                    <p class="descripcionComponentes"><strong>Componentes:</strong> Procesador AMD Ryzen 9, tarjeta gráfica NVIDIA Quadro RTX 4000, 64 GB de RAM DDR4, SSD de 2 TB.</p>
+                    <div class="divBtn">
+                        <span class="precio text-red-700">Antes: $ 2999.99</span>
+                        <span class="precio text-green-700" id="precioOferta">Ahora: $ 2500.00</span>
+                        <button class="btnComprar" data-product="Ordenador Profesional" data-price="2500.00">Comprar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 3 -->
+            <div class="productoCartas">
+                <img src="/IMG/ordenador3_ofertas.png" alt="ordenador3" class="imagen">
+                <div class="p-4">
+                    <h3 class="tituloOrdenador">Ordenador de Oficina</h3>
+                    <p class="descripcionRapida">Perfecto para tareas de oficina y productividad diaria.</p>
+                    <p class="descripcionComponentes"><strong>Componentes:</strong> Procesador Intel Core i5, gráficos integrados Intel UHD, 16 GB de RAM DDR4, SSD de 512 GB.</p>
+                    <div class="divBtn">
+                        <span class="precio text-red-700">Antes: $ 999.99</span>
+                        <span class="precio text-green-700" id="precioOferta">Ahora: $ 799.99</span>
+                        <button class="btnComprar" data-product="Ordenador de Oficina" data-price="799.99">Comprar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 4 -->
+            <div class="productoCartas">
+                <img src="/IMG/ordenador4_ofertas.png" alt="ordenador4" class="imagen">
+                <div class="p-4">
+                    <h3 class="tituloOrdenador">Ordenador para Estudiantes</h3>
+                    <p class="descripcionRapida">Económico y eficiente para tareas académicas y navegación web.</p>
+                    <p class="descripcionComponentes"><strong>Componentes:</strong> Procesador Intel Core i3, gráficos integrados Intel UHD, 8 GB de RAM DDR4, SSD de 256 GB.</p>
+                    <div class="divBtn">
+                        <span class="precio text-red-700">Antes: $ 599.99</span>
+                        <span class="precio text-green-700" id="precioOferta">Ahora: $ 449.99</span>
+                        <button class="btnComprar" data-product="Ordenador para Estudiantes" data-price="449.99">Comprar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 5 -->
+            <div class="productoCartas">
+                <img src="/IMG/ordenador5_ofertas.png" alt="ordenador5" class="imagen">
+                <div class="p-4">
+                    <h3 class="tituloOrdenador">Ordenador Todo en Uno</h3>
+                    <p class="descripcionRapida">Diseño compacto con alto rendimiento y pantalla integrada.</p>
+                    <p class="descripcionComponentes"><strong>Componentes:</strong> Procesador AMD Ryzen 7, tarjeta gráfica AMD Radeon RX 5500M, 16 GB de RAM DDR4, SSD de 1 TB.</p>
+                    <div class="divBtn">
+                        <span class="precio text-red-700">Antes: $ 1499.99</span>
+                        <span class="precio text-green-700" id="precioOferta">Ahora: $ 1200.00</span>
+                        <button class="btnComprar" data-product="Ordenador Todo en Uno" data-price="1200.00">Comprar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 6 -->
+            <div class="productoCartas">
+                <img src="/IMG/ordenador6_ofertas.png" alt="ordenador6" class="imagen">
+                <div class="p-4">
+                    <h3 class="tituloOrdenador">Ordenador Compacto</h3>
+                    <p class="descripcionRapida">Ideal para espacios reducidos sin sacrificar rendimiento.</p>
+                    <p class="descripcionComponentes"><strong>Componentes:</strong> Procesador Intel Core i7, tarjeta gráfica NVIDIA GeForce GTX 1660 Ti, 16 GB de RAM DDR4, SSD de 512 GB.</p>
+                    <div class="divBtn">
+                        <span class="precio text-red-700">Antes: $ 1299.99</span>
+                        <span class="precio text-green-700" id="precioOferta">Ahora: $ 1000.00</span>
+                        <button class="btnComprar" data-product="Ordenador Compacto" data-price="1000.00">Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>  
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="divFooter">
+            <div class="footerFlex">
+                <div class="footerSection">
+                    <h2 class="footerTitle">Sobre Nosotros</h2>
+                    <p class="footerText mr-8">Somos una tienda de ordenadores dedicada a ofrecer los mejores productos y servicios para satisfacer todas tus necesidades tecnológicas.</p>
+                </div>
+                <!-- Quick Links -->
+                <div class="footerSection">
+                    <h2 class="footerTitle">Enlaces Rápidos</h2>
+                    <ul class="footerList">
+                        <li class="footerListItem"><a href="/HTML/index.html" class="footerLink">Inicio</a></li>
+                        <li class="footerListItem"><a href="/HTML/productos.html" class="footerLink">Productos</a></li>
+                        <li class="footerListItem"><a href="/HTML/sobreNosotros.html" class="footerLink">Sobre Nosotros</a></li>
+                        <li class="footerListItem"><a href="/HTML/contanto.html" class="footerLink">Contacto</a></li>
+                    </ul>
+                </div>
+                <!-- Support -->
+                <div class="footerSection">
+                    <h2 class="footerTitle">Soporte</h2>
+                    <ul class="footerList">
+                        <li class="footerListItem"><a href="/HTML/preguntasFrecuentes.html" class="footerLink">Preguntas Frecuentes</a></li>
+                        <li class="footerListItem"><a href="/HTML/terminosCondiciones.html" class="footerLink">Términos y Condiciones</a></li>
+                        <li class="footerListItem"><a href="/HTML/politicaPrivacidad.html" class="footerLink">Política de Privacidad</a></li>
+                    </ul>
+                </div>
+                <!-- Contact Info -->
+                <div class="footerSection">
+                    <h2 class="footerTitle">Contáctanos</h2>
+                    <p class="footerText mb-2">Teléfono: +123 456 789</p>
+                    <p class="footerText mb-2">Email: info@tiendadeordenadores.com</p>
+                    <p class="footerText">Dirección: Calle Falsa 123, Ciudad, País</p>
+                </div>
+            </div>
+            <div class="footerBottom">
+                &copy; 2024 Tienda de Ordenadores. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+  
+    <!-- Adding the JS file -->
+    <script src="/JS/App.js"></script>
+    <script src="/JS/slider.js"></script>
+    <script src="/JS/navbar.js"></script>
+
+</body>
+</html>

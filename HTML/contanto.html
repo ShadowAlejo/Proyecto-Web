@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/CSS/output.css" rel="stylesheet">
+    <title>Contacto</title>
+    <link rel="stylesheet" href="/CSS/modal.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="bg-zinc-100">
+    
+  <!-- Navbar -->
+    <nav class="navBar">
+        <div class="navBarLogoContainer">
+            <span class="navBarLogoText">Tienda de Ordenadores</span>
+        </div>
+        <div class="navBarButtonContainer">
+            <button id="boton" class="navBarButton">
+                <svg class="navBarButtonSvg" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <title>Menu</title>
+                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                </svg>
+            </button>
+        </div>
+        <div id="menu" class="navBarMenu hidden lg:block">
+            <div class="navBarMenuItemContainer">
+                <a href="/HTML/index.html" class="navBarMenuItem">Inicio</a>
+                <a href="/HTML/productos.html" class="navBarMenuItem">Productos</a>
+                <a href="/HTML/contanto.html" class="navBarMenuItem">Contacto</a>
+                <a href="/HTML/sobreNosotros.html" class="navBarMenuItem">Sobre Nosotros</a> 
+                <a href="/HTML/login.html" id="loginNav" class="navBarMenuItem">Iniciar Sesión</a>
+                <a href="/HTML/register.html" id="registerNav" class="navBarMenuItem">Registrarse</a>
+                <a href="#" id="userNav" class="navBarMenuItem hidden"></a>
+                <a href="#" id="logoutNav" class="navBarMenuItem hidden">Cerrar Sesión</a>
+                <div class="navBarCartContainer relative inline-block">
+                    <a href="/HTML/carrito.html" id="openCartModal" class="navBarCart relative">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cartCount" class="cartCount hidden">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>        
+    </nav>
+      
+    <!-- Header -->
+    <table class="text-black w-full">
+        <thead>
+          <tr>
+            <th class="centrar" colspan="3">
+              <h1 class="header">Contacto</h1>
+            </th>
+          </tr>
+        </thead>    
+    </table>
+
+    <!-- Contacto -->
+    <main class="contactContainer">
+      <div class="contactFormContainer">
+          <h2 class="contactTitle">Formulario de Contacto</h2>
+          <form id="contactForm" action="http://localhost:3001/submit-contact" method="POST" class="contactForm" novalidate>
+            <div>
+                <label for="username" class="contactLabel">Nombre y Apellido</label>
+                <input type="text" id="username" name="username" class="contactInput" required>
+                <span id="usernameError" class="messageError"></span>
+            </div>
+            <div>
+                <label for="email" class="contactLabel">Correo Electrónico</label>
+                <input type="email" id="email" name="email" class="contactInput" required>
+                <span id="emailError" class="messageError"></span>
+            </div>
+            <div>
+                <label for="fecha" class="contactLabel">Fecha</label>
+                <input type="date" id="fecha" name="fecha" class="contactInput" required>
+                <span id="dateError" class="messageError"></span>
+            </div>
+            <div>
+                <label for="asunto" class="contactLabel">Asunto</label>
+                <input type="text" id="asunto" name="asunto" class="contactInput" required>
+                <span id="subjectError" class="messageError"></span>
+            </div>
+            <div>
+                <label for="mensaje" class="contactLabel">Mensaje</label>
+                <textarea id="mensaje" name="mensaje" rows="4" class="contactTextarea" required></textarea>
+                <span id="messageError" class="messageError"></span>
+            </div>
+            <div class="contactButtonContainer">
+                <button type="submit" class="contactButton">Enviar</button>
+            </div>
+        </form>                       
+      </div>
+    </main>
+
+    <!-- Modal de Notificación -->
+    <div id="notificationModal" class="modal hidden fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ">
+        <div class="modal-content bg-white p-5 rounded-lg shadow-lg text-center">
+            <p id="notificationMessage" class="text-lg font-semibold"></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="divFooter">
+            <div class="footerFlex">
+                <div class="footerSection">
+                    <h2 class="footerTitle">Sobre Nosotros</h2>
+                    <p class="footerText mr-8">Somos una tienda de ordenadores dedicada a ofrecer los mejores productos y servicios para satisfacer todas tus necesidades tecnológicas.</p>
+                </div>
+                <div class="footerSection">
+                    <h2 class="footerTitle">Enlaces Rápidos</h2>
+                    <ul class="footerList">
+                        <li class="footerListItem"><a href="/HTML/index.html" class="footerLink">Inicio</a></li>
+                        <li class="footerListItem"><a href="/HTML/productos.html" class="footerLink">Productos</a></li>
+                        <li class="footerListItem"><a href="/HTML/sobreNosotros.html" class="footerLink">Sobre Nosotros</a></li>
+                        <li class="footerListItem"><a href="/HTML/contanto.html" class="footerLink">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footerSection">
+                    <h2 class="footerTitle">Soporte</h2>
+                    <ul class="footerList">
+                        <li class="footerListItem"><a href="/HTML/preguntasFrecuentes.html" class="footerLink">Preguntas Frecuentes</a></li>
+                        <li class="footerListItem"><a href="/HTML/terminosCondiciones.html" class="footerLink">Términos y Condiciones</a></li>
+                        <li class="footerListItem"><a href="/HTML/politicaPrivacidad.html" class="footerLink">Política de Privacidad</a></li>
+                    </ul>
+                </div>
+                <div class="footerSection">
+                    <h2 class="footerTitle">Contáctanos</h2>
+                    <p class="footerText mb-2">Teléfono: +123 456 789</p>
+                    <p class="footerText mb-2">Email: info@tiendadeordenadores.com</p>
+                    <p class="footerText">Dirección: Calle Falsa 123, Ciudad, País</p>
+                </div>
+            </div>
+            <div class="footerBottom">
+                &copy; 2024 Tienda de Ordenadores. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+</body>
+<script src="/JS/App.js"></script>
+<script src="/JS/validacionContacto.js" defer></script>
+<script src="/JS/navbar.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/CSS/output.css" rel="stylesheet">
+    <title>Inicio de Sesión</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="bg-zinc-100">
+    
+    <!--Navbar-->
+    <nav class="navBar">
+        <div class="navBarLogoContainer">
+            <span class="navBarLogoText">Tienda de Ordenadores</span>
+        </div>
+        <div class="navBarButtonContainer">
+            <button id="boton" class="navBarButton">
+                <svg class="navBarButtonSvg" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <title>Menu</title>
+                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                </svg>
+            </button>
+        </div>
+        <div id="menu" class="navBarMenu hidden lg:block">
+            <div class="navBarMenuItemContainer">
+                <a href="/HTML/index.html" class="navBarMenuItem">Inicio</a>
+                <a href="/HTML/productos.html" class="navBarMenuItem">Productos</a>
+                <a href="/HTML/contanto.html" class="navBarMenuItem">Contacto</a>
+                <a href="/HTML/sobreNosotros.html" class="navBarMenuItem">Sobre Nosotros</a> 
+                <a href="/HTML/login.html" id="loginNav" class="navBarMenuItem">Iniciar Sesión</a>
+                <a href="/HTML/register.html" id="registerNav" class="navBarMenuItem">Registrarse</a>
+                <a href="#" id="userNav" class="navBarMenuItem hidden"></a> <!-- Este enlace mostrará el nombre del usuario -->
+                <a href="#" id="logoutNav" class="navBarMenuItem hidden">Cerrar Sesión</a> <!-- Este enlace cerrará la sesión -->
+                <div class="navBarCartContainer relative inline-block">
+                    <a href="/HTML/carrito.html" id="openCartModal" class="navBarCart relative">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cartCount" class="cartCount hidden">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>        
+    </nav>
+
+    <!-- Sección de Inicio de Sesión -->
+    <section id="login" class="bg-zinc-100 py-8">
+        <div class="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-md">
+            <div class="md:flex">
+                <div class="w-full p-4">
+                    <h2 class="text-2xl font-bold text-center">Inicio de Sesión</h2>
+                    <form action="/login" method="POST">
+                        <div class="mt-4">
+                            <label for="email" class="block text-gray-700">Correo Electrónico</label>
+                            <input type="email" name="email" id="email" class="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" required>
+                        </div>
+                        <div class="mt-4">
+                            <label for="password" class="block text-gray-700">Contraseña</label>
+                            <input type="password" name="password" id="password" class="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" required>
+                        </div>
+                        <div class="mt-6">
+                            <button type="submit" class="w-full bg-amber-500 text-white py-2 px-4 rounded-lg hover:bg-amber-600">Iniciar Sesión</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="divFooter">
+            <div class="footerFlex">
+                <div class="footerSection">
+                    <h2 class="footerTitle">Sobre Nosotros</h2>
+                    <p class="footerText mr-8">Somos una tienda de ordenadores dedicada a ofrecer los mejores productos y servicios para satisfacer todas tus necesidades tecnológicas.</p>
+                </div>
+                <!-- Quick Links -->
+                <div class="footerSection">
+                    <h2 class="footerTitle">Enlaces Rápidos</h2>
+                    <ul class="footerList">
+                        <li class="footerListItem"><a href="/HTML/index.html" class="footerLink">Inicio</a></li>
+                        <li class="footerListItem"><a href="/HTML/productos.html" class="footerLink">Productos</a></li>
+                        <li class="footerListItem"><a href="/HTML/sobreNosotros.html" class="footerLink">Sobre Nosotros</a></li>
+                        <li class="footerListItem"><a href="/HTML/contanto.html" class="footerLink">Contacto</a></li>
+                    </ul>
+                </div>
+                <!-- Support -->
+                <div class="footerSection">
+                    <h2 class="footerTitle">Soporte</h2>
+                    <ul class="footerList">
+                        <li class="footerListItem"><a href="/HTML/preguntasFrecuentes.html" class="footerLink">Preguntas Frecuentes</a></li>
+                        <li class="footerListItem"><a href="/HTML/terminosCondiciones.html" class="footerLink">Términos y Condiciones</a></li>
+                        <li class="footerListItem"><a href="/HTML/politicaPrivacidad.html" class="footerLink">Política de Privacidad</a></li>
+                    </ul>
+                </div>
+                <!-- Contact Info -->
+                <div class="footerSection">
+                    <h2 class="footerTitle">Contáctanos</h2>
+                    <p class="footerText mb-2">Teléfono: +123 456 789</p>
+                    <p class="footerText mb-2">Email: info@tiendadeordenadores.com</p>
+                    <p class="footerText">Dirección: Calle Falsa 123, Ciudad, País</p>
+                </div>
+            </div>
+            <div class="footerBottom">
+                &copy; 2024 Tienda de Ordenadores. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+  
+    <!-- Adding the JS file -->
+    <script src="/JS/App.js"></script>
+    <script src="/JS/slider.js"></script>
+    <script src="/JS/navbar.js"></script>
+
+</body>
+</html>

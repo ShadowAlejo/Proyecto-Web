@@ -1,0 +1,38 @@
+/* Slider */
+.slider {
+    position: relative;
+    width: 97%;
+    height: 50vh; /* Ajusta la altura basada en el viewport */
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out; /* Acelerando un poco la transición */
+}
+
+.slide-active {
+    opacity: 1;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que las imágenes cubran todo el espacio disponible */
+}
+
+/* Responsividad en pantallas más pequeñas */
+@media (max-width: 768px) {
+    .slider {
+        height: 30vh; /* Reduce la altura en pantallas más pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .slider {
+        height: 25vh; /* Altura aún más reducida en pantallas muy pequeñas */
+    }
+}

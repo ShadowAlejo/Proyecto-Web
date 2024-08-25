@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/CSS/output.css" rel="stylesheet">
+    <title>Terminos y Condiciones</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+<body class="bg-zinc-100">
+    
+    <!--Navbar-->
+    <nav class="navBar">
+        <div class="navBarLogoContainer">
+            <span class="navBarLogoText">Tienda de Ordenadores</span>
+        </div>
+        <div class="navBarButtonContainer">
+            <button id="boton" class="navBarButton">
+                <svg class="navBarButtonSvg" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <title>Menu</title>
+                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                </svg>
+            </button>
+        </div>
+        <div id="menu" class="navBarMenu hidden lg:block">
+            <div class="navBarMenuItemContainer">
+                <a href="/HTML/index.html" class="navBarMenuItem">Inicio</a>
+                <a href="/HTML/productos.html" class="navBarMenuItem">Productos</a>
+                <a href="/HTML/contanto.html" class="navBarMenuItem">Contacto</a>
+                <a href="/HTML/sobreNosotros.html" class="navBarMenuItem">Sobre Nosotros</a> 
+                <a href="/HTML/login.html" id="loginNav" class="navBarMenuItem">Iniciar Sesión</a>
+                <a href="/HTML/register.html" id="registerNav" class="navBarMenuItem">Registrarse</a>
+                <a href="#" id="userNav" class="navBarMenuItem hidden"></a> <!-- Este enlace mostrará el nombre del usuario -->
+                <a href="#" id="logoutNav" class="navBarMenuItem hidden">Cerrar Sesión</a> <!-- Este enlace cerrará la sesión -->
+                <div class="navBarCartContainer relative inline-block">
+                    <a href="/HTML/carrito.html" id="openCartModal" class="navBarCart relative">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cartCount" class="cartCount hidden">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>        
+    </nav>
+
+    <!--Términos y Condiciones-->
+    <div class="termsContainer" style="width: 85%;">
+        <div class="termsSection">
+            <h1 class="termsTitle">Términos y Condiciones</h1>
+            
+            <h2 class="termsSubtitle">1. Introducción</h2>
+            <p class="termsParagraph">Bienvenido a nuestra tienda en línea. Al utilizar nuestro sitio web, aceptas cumplir y estar sujeto a los siguientes términos y condiciones. Por favor, léelos detenidamente antes de usar nuestro sitio.</p>
+
+            <h2 class="termsSubtitle">2. Uso del Sitio</h2>
+            <p class="termsParagraph">Nuestro sitio web está destinado a ser utilizado para realizar compras en línea de productos disponibles. Te comprometes a no usar el sitio para cualquier propósito ilegal o prohibido por estos términos.</p>
+
+            <h2 class="termsSubtitle">3. Propiedad Intelectual</h2>
+            <p class="termsParagraph">Todo el contenido del sitio web, incluyendo texto, gráficos, logotipos, imágenes y software, es propiedad de nuestra tienda y está protegido por leyes de propiedad intelectual. No puedes reproducir, distribuir o transmitir ningún contenido sin nuestro permiso previo por escrito.</p>
+
+            <h2 class="termsSubtitle">4. Política de Privacidad</h2>
+            <p class="termsParagraph">Nos comprometemos a proteger tu privacidad. Consulta nuestra Política de Privacidad para obtener información detallada sobre cómo recopilamos, usamos y protegemos tus datos personales.</p>
+
+            <h2 class="termsSubtitle">5. Productos y Precios</h2>
+            <p class="termsParagraph">Nos reservamos el derecho de modificar los productos y precios en cualquier momento sin previo aviso. Todos los precios incluyen impuestos aplicables. Nos esforzamos por mostrar información precisa sobre los productos, pero no garantizamos que las descripciones sean completamente exactas o libres de errores.</p>
+
+            <h2 class="termsSubtitle">6. Pedidos y Pagos</h2>
+            <p class="termsParagraph">Al realizar un pedido, aceptas proporcionar información veraz y precisa. Nos reservamos el derecho de rechazar o cancelar cualquier pedido por cualquier motivo. Aceptamos varios métodos de pago, y todos los pagos se procesan de manera segura.</p>
+
+            <h2 class="termsSubtitle">7. Envío y Entrega</h2>
+            <p class="termsParagraph">Nos esforzamos por enviar los productos lo más rápido posible. Los tiempos de entrega pueden variar según la ubicación y el método de envío seleccionado. No somos responsables de retrasos causados por circunstancias fuera de nuestro control.</p>
+
+            <h2 class="termsSubtitle">8. Devoluciones y Reembolsos</h2>
+            <p class="termsParagraph">Aceptamos devoluciones dentro de los 30 días posteriores a la compra. Los productos deben estar en su estado original y sin usar. Consulta nuestra política de devoluciones para más detalles.</p>
+
+            <h2 class="termsSubtitle">9. Limitación de Responsabilidad</h2>
+            <p class="termsParagraph">No seremos responsables de ningún daño indirecto, incidental, especial o consecuente que surja del uso de nuestro sitio o la compra de nuestros productos.</p>
+
+            <h2 class="termsSubtitle">10. Modificaciones a los Términos</h2>
+            <p class="termsParagraph">Nos reservamos el derecho de modificar estos términos y condiciones en cualquier momento. Las modificaciones entrarán en vigor inmediatamente después de su publicación en el sitio web.</p>
+
+            <h2 class="termsSubtitle">11. Contacto</h2>
+            <p class="termsParagraph">Si tienes alguna pregunta o inquietud acerca de estos términos y condiciones, por favor contáctanos a través de nuestro formulario de contacto o enviándonos un correo electrónico a soporte@tienda.com.</p>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="divFooter">
+            <div class="footerFlex">
+                <div class="footerSection">
+                    <h2 class="footerTitle">Sobre Nosotros</h2>
+                    <p class="footerText mr-8">Somos una tienda de ordenadores dedicada a ofrecer los mejores productos y servicios para satisfacer todas tus necesidades tecnológicas.</p>
+                </div>
+                <!-- Quick Links -->
+                <div class="footerSection">
+                    <h2 class="footerTitle">Enlaces Rápidos</h2>
+                    <ul class="footerList">
+                        <li class="footerListItem"><a href="/HTML/index.html" class="footerLink">Inicio</a></li>
+                        <li class="footerListItem"><a href="/HTML/productos.html" class="footerLink">Productos</a></li>
+                        <li class="footerListItem"><a href="/HTML/sobreNosotros.html" class="footerLink">Sobre Nosotros</a></li>
+                        <li class="footerListItem"><a href="/HTML/contanto.html" class="footerLink">Contacto</a></li>
+                    </ul>
+                </div>
+                <!-- Support -->
+                <div class="footerSection">
+                    <h2 class="footerTitle">Soporte</h2>
+                    <ul class="footerList">
+                        <li class="footerListItem"><a href="/HTML/preguntasFrecuentes.html" class="footerLink">Preguntas Frecuentes</a></li>
+                        <li class="footerListItem"><a href="/HTML/terminosCondiciones.html" class="footerLink">Términos y Condiciones</a></li>
+                        <li class="footerListItem"><a href="/HTML/politicaPrivacidad.html" class="footerLink">Política de Privacidad</a></li>
+                    </ul>
+                </div>
+                <!-- Contact Info -->
+                <div class="footerSection">
+                    <h2 class="footerTitle">Contáctanos</h2>
+                    <p class="footerText mb-2">Teléfono: +123 456 789</p>
+                    <p class="footerText mb-2">Email: info@tiendadeordenadores.com</p>
+                    <p class="footerText">Dirección: Calle Falsa 123, Ciudad, País</p>
+                </div>
+            </div>
+            <div class="footerBottom">
+                &copy; 2024 Tienda de Ordenadores. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+  
+</body>
+
+    <script src="/JS/App.js"></script>
+    <script src="/JS/navbar.js"></script>
+
+</html>
