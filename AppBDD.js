@@ -281,6 +281,20 @@ app.get('/get-products', (req, res) => {
     });
 });
 
+// Ruta para eliminar un producto de la base de datos
+app.delete('/delete-product/:id', (req, res) => {
+    const productId = req.params.id;
+    const query = 'DELETE FROM products WHERE product_id = ?';
+
+    connection.query(query, [productId], (err, result) => {
+        if (err) {
+            console.error('Error al eliminar el producto:', err);
+            return res.status(500).send('Error al eliminar el producto.');
+        }
+        res.status(200).json({ success: true, message: 'Producto eliminado correctamente.' });
+    });
+});
+
 app.listen(3001, () => {
     console.log('Servidor corriendo en http://localhost:3001');
 });

@@ -25,14 +25,14 @@
 /* Estilo del contenido del modal */
 .modal-content {
     background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px; /* Aumentar el padding para más espacio interior */
+    border-radius: 12px; /* Bordes más redondeados */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
     text-align: center;
     position: relative;
-    max-width: 400px; /* Ancho máximo del modal */
+    max-width: 500px; /* Ancho máximo */
     width: 100%;
-    max-height: 90vh; /* Limitar la altura del modal al 90% de la ventana */
+    max-height: 85vh; /* Limitar la altura del modal */
     overflow-y: auto; /* Permitir el desplazamiento vertical dentro del modal */
 }
 
@@ -63,11 +63,102 @@
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
+    color: #6c757d; /* Gris */
+    transition: color 0.3s ease;
 }
 
-/* Responsividad para la imagen de vista previa */
-#previewImg {
-    max-width: 100%; /* Asegura que la imagen no se salga del contenedor */
-    height: auto;
-    margin-top: 1rem;
+.close-button:hover {
+    color: #343a40; /* Gris más oscuro */
+}
+
+/* Estilos para los botones dentro del modal */
+
+/* Botón General */
+.adminCardButton {
+    background-color: #007BFF; /* Azul profesional */
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px; /* Bordes más redondeados */
+    border: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    margin: 10px 5px; /* Espaciado entre botones */
+}
+
+.adminCardButton:hover {
+    background-color: #0056b3; /* Azul más oscuro al pasar el mouse */
+}
+
+/* Botón Eliminar */
+.adminCardButton.delete {
+    background-color: #dc3545; /* Rojo de advertencia */
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.adminCardButton.delete:hover {
+    background-color: #c82333; /* Rojo más oscuro al pasar el mouse */
+}
+
+/* Botón Ocultar */
+.adminCardButton.hide {
+    background-color: #6c757d; /* Color gris */
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.adminCardButton.hide:hover {
+    background-color: #5a6268; /* Oscurecer al pasar el mouse */
+}
+
+/* Estilo para los ítems de producto dentro del modal */
+.productoEliminar {
+    background-color: #f8f9fa; /* Fondo gris claro */
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.productoEliminar span {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Botón Eliminar dentro de los ítems */
+.btnEliminar {
+    background-color: #ef4444;
+    border-radius: 9999px; /* Hacer que el borde sea completamente redondeado */
+    color: #ffffff;
+    padding: 10px 20px; /* Aumentar el padding para hacer el botón más grande */
+    font-weight: 700;
+    font-size: 1rem; /* Aumentar el tamaño de la fuente */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Agregar una sombra ligera */
+    transition: all 0.3s ease-in-out;
+    border: 2px solid #e11d48; /* Agregar un borde sólido */
+}
+
+.btnEliminar:hover {
+    background-color: #dc2626;
+    transform: scale(1.05); /* Aumentar ligeramente el tamaño al pasar el mouse */
+}
+
+.btnEliminar:active {
+    background-color: #b91c1c;
+    transform: scale(0.95); /* Reducir ligeramente el tamaño al hacer clic */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reducir la sombra al hacer clic */
 }

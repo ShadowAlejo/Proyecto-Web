@@ -7,6 +7,7 @@
     <title>Administrar Productos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="/CSS/modal.css">
+    <link rel="stylesheet" href="/CSS/notificacion.css">
 </head>
 <body class="bg-zinc-100">
     <!-- Navbar -->
@@ -49,8 +50,7 @@
             <div class="adminCard">
                 <div class="adminCardTitle">Productos</div>
                 <button id="openModalButton" class="adminCardButton">Agregar</button> <!-- Asegúrate de que este botón tiene el ID correcto -->
-                <button class="adminCardButton delete">Eliminar</button>
-                <button class="adminCardButton hide">Ocultar</button>
+                <button id="openDeleteModalButton" class="adminCardButton delete">Eliminar</button>
                 <button class="adminCardButton">Listar</button>
             </div>
         </div>
@@ -92,6 +92,18 @@
         </div>
     </div>
 
+    <!-- Modal para Eliminar Producto -->
+    <div id="deleteProductModal" class="modal hidden">
+        <div class="modal-content">
+            <h3 class="adminCardTitle">Eliminar Producto</h3>
+            <div id="productList" class="space-y-4">
+                <!-- Aquí se cargarán los productos desde la base de datos -->
+            </div>
+            <div class="text-right">
+                <button type="button" id="closeDeleteModalButton" class="adminCardButton hide">Cerrar</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -138,6 +150,7 @@
     <script src="/JS/navbar.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
-    <script src="/JSON/adminProductos.js"></script>
+    <script src="/JS/adminProductos.js" ></script>
+
 </body>
 </html>

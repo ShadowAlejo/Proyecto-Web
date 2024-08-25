@@ -68,36 +68,95 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return url;
     }
+});
 
-    // Cargar productos desde la base de datos
-    loadProducts();
+document.addEventListener('DOMContentLoaded', () => {
+    // Modal para Eliminar Producto
+    const openDeleteModalButton = document.getElementById('openDeleteModalButton');
+    const closeDeleteModalButton = document.getElementById('closeDeleteModalButton');
+    const deleteProductModal = document.getElementById('deleteProductModal');
+    const deleteModalContent = deleteProductModal.querySelector('.modal-content');
+    const productList = document.getElementById('productList');
 
-    // Función para cargar productos desde la base de datos
-    function loadProducts() {
+    // Abrir el modal de eliminar productos
+    if (openDeleteModalButton && deleteProductModal) {
+        openDeleteModalButton.addEventListener('click', () => {
+            deleteProductModal.classList.remove('hidden');
+            deleteProductModal.classList.add('show');
+            loadProductsForDeletion();
+        });
+    }
+
+    // Cerrar el modal de eliminar productos
+    if (closeDeleteModalButton && deleteProductModal) {
+        closeDeleteModalButton.addEventListener('click', () => {
+            deleteProductModal.classList.remove('show');
+            deleteProductModal.classList.add('hidden');
+        });
+    }
+
+    // Cerrar el modal de eliminar productos al hacer clic fuera del contenido
+    if (deleteProductModal) {
+        deleteProductModal.addEventListener('click', (event) => {
+            if (!deleteModalContent.contains(event.target)) {
+                deleteProductModal.classList.remove('show');
+                deleteProductModal.classList.add('hidden');
+            }
+        });
+    }
+
+    // Función para cargar productos en el modal de eliminación
+    function loadProductsForDeletion() {
         fetch('/get-products')
             .then(response => response.json())
             .then(data => {
-                const productContainer = document.querySelector('.divSeccionProductos');
-                productContainer.innerHTML = ''; // Limpiar el contenedor de productos
+                productList.innerHTML = ''; // Limpiar la lista de productos
                 data.products.forEach(product => {
-                    const productCard = `
-                        <div class="productoCartas">
-                            <img src="${product.image_url}" alt="${product.product_name}" class="imagen">
-                            <div class="p-4">
-                                <h3 class="tituloOrdenador">${product.product_name}</h3>
-                                <p class="descripcionRapida">${product.description}</p>
-                                <div class="divBtn">
-                                    <span class="precio">$${product.price.toFixed(2)}</span>
-                                    <button class="btnComprar" data-product="${product.product_name}" data-price="${product.price}">Comprar</button> 
-                                </div>
-                            </div>
-                        </div>
+                    const productItem = document.createElement('div');
+                    productItem.className = 'productoEliminar flex justify-between items-center';
+                    productItem.innerHTML = `
+                        <span>${product.product_name}</span>
+                        <button class="adminCardButton btnEliminar" data-product-id="${product.product_id}">Eliminar</button>
                     `;
-                    productContainer.insertAdjacentHTML('beforeend', productCard);
+                    productList.appendChild(productItem);
+                });
+
+                // Asignar eventos de clic a los botones de eliminación
+                const deleteButtons = document.querySelectorAll('.btnEliminar');
+                deleteButtons.forEach(button => {
+                    button.addEventListener('click', (event) => {
+                        const productId = event.target.getAttribute('data-product-id');
+                        deleteProduct(productId);
+                    });
                 });
             })
             .catch(error => {
-                console.error('Error al cargar los productos:', error);
+                console.error('Error al cargar los productos para eliminación:', error);
             });
+    }
+
+    // Función para eliminar un producto de la base de datos
+    function deleteProduct(productId) {
+        fetch(`/delete-product/${productId}`, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error al eliminar el producto: ${response.statusText}`);
+            }
+            return response.json(); // Asegúrate de que la respuesta sea JSON
+        })
+        .then(data => {
+            if (data.success) {
+                showNotification('Producto eliminado correctamente.');
+                loadProductsForDeletion(); // Recargar la lista de productos
+            } else {
+                showNotification('Error al eliminar el producto.', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error al eliminar el producto:', error);
+            showNotification('Error al eliminar el producto.', 'error');
+        });
     }
 });
