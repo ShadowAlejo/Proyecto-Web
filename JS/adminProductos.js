@@ -160,3 +160,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const openListModalButton = document.getElementById('openListModalButton');
+    const listProductsModal = document.getElementById('listProductsModal');
+    const productListContainer = document.getElementById('productListContainer');
+    const closeListModalButton = document.getElementById('closeListModalButton');
+
+    if (openListModalButton) {
+        openListModalButton.addEventListener('click', () => {
+            fetch('/get-products')
+                .then(response => response.json())
+                .then(data => {
+                    const products = data.products;
+                    productListContainer.innerHTML = ''; // Limpiar contenedor
+
+                    products.forEach(product => {
+                        productListContainer.insertAdjacentHTML('beforeend', `
+                            <div class="productoEliminar">
+                                <span>${product.product_name}</span>
+                                <span>$${product.price}</span>
+                                <span>${product.description}</span>
+                                <span>${product.components}</span>
+                            </div>
+                        `);
+                    });
+
+                    listProductsModal.classList.remove('hidden');
+                    listProductsModal.classList.add('show');
+                })
+                .catch(error => {
+                    console.error('Error al obtener los productos:', error);
+                });
+        });
+    }
+
+    if (closeListModalButton) {
+        closeListModalButton.addEventListener('click', () => {
+            listProductsModal.classList.remove('show');
+            listProductsModal.classList.add('hidden');
+        });
+    }
+}); 
+
+document.addEventListener('DOMContentLoaded', () => {
+    const viewProductsButton = document.getElementById('viewProductsButton');
+
+    if (viewProductsButton) {
+        viewProductsButton.addEventListener('click', () => {
+            window.location.href = '/HTML/productos.html';
+        });
+    } else {
+        console.error("viewProductsButton no encontrado");
+    }
+});

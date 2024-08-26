@@ -51,7 +51,8 @@
                 <div class="adminCardTitle">Productos</div>
                 <button id="openModalButton" class="adminCardButton">Agregar</button> <!-- Asegúrate de que este botón tiene el ID correcto -->
                 <button id="openDeleteModalButton" class="adminCardButton delete">Eliminar</button>
-                <button class="adminCardButton">Listar</button>
+                <button id="openListModalButton" class="adminCardButton">Listar</button>
+                <button id="viewProductsButton" class="adminCardButton">Ver productos</button>
             </div>
         </div>
     </section>
@@ -105,6 +106,19 @@
             </div>
             <div class="text-right">
                 <button type="button" id="closeDeleteModalButton" class="adminCardButton hide">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Listar Productos -->
+    <div id="listProductsModal" class="modal hidden">
+        <div class="modal-content">
+            <h3 class="adminCardTitle">Lista de Productos</h3>
+            <div id="productListContainer" class="space-y-4">
+                <!-- Aquí se cargarán los productos desde la base de datos -->
+            </div>
+            <div class="text-right">
+                <button type="button" id="closeListModalButton" class="adminCardButton hide">Cerrar</button>
             </div>
         </div>
     </div>
