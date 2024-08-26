@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="p-4">
                                 <h3 class="tituloOrdenador text-sm sm:text-lg md:text-xl font-semibold text-gray-900">${producto.product_name}</h3>
                                 <p class="descripcionRapida mt-2 text-lg sm:text-base text-gray-700 text-justify">${producto.description}</p>
-                                <p class="descripcionComponentes mt-2 text-lg sm:text-base text-gray-700 text-justify"><strong>Componentes:</strong> ${producto.components || 'No especificado'}</p>
+                                <p class="descripcionComponentes mt-2 text-lg sm:text-base text-gray-700 text-justify"><strong>Componentes:</strong> ${producto.components}</p>
                                 <div class="divBtn mt-4 flex justify-between items-center">
                                     <span class="precio text-sm sm:text-lg md:text-xl font-bold text-black">$${producto.price}</span>
                                     <button class="btnComprar bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-white py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out" data-product="${producto.product_name}" data-price="${producto.price}">Comprar</button>

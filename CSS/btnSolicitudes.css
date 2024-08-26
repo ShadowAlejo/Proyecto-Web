@@ -1,0 +1,55 @@
+/* Estilo base para los botones */
+button {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+/* Botón "Marcar como Hecha" */
+.btnHecha {
+    background-color: #28a745; /* Verde */
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btnHecha:hover {
+    background-color: #218838; /* Verde más oscuro */
+    transform: translateY(-2px);
+}
+
+.btnHecha:active {
+    background-color: #1e7e34; /* Verde aún más oscuro */
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón "Poner en Espera" */
+.btnEspera {
+    background-color: #ffc107; /* Amarillo */
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-left: 10px;
+}
+
+.btnEspera:hover {
+    background-color: #e0a800; /* Amarillo más oscuro */
+    transform: translateY(-2px);
+}
+
+.btnEspera:active {
+    background-color: #c69500; /* Amarillo aún más oscuro */
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para los botones deshabilitados */
+button:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+}

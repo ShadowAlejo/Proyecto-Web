@@ -27,8 +27,8 @@ function fetchSolicitudes() {
                     <td class="border px-4 py-2">${solicitud.asunto}</td>
                     <td class="border px-4 py-2">${solicitud.mensaje}</td>
                     <td class="border px-4 py-2">
-                        <button data-id="${solicitud.contact_id}" class="btnHecha bg-green-500 text-white px-4 py-2 my-5 rounded">Marcar como Hecha</button>
-                        <button data-id="${solicitud.contact_id}" class="btnEspera bg-yellow-500 text-white px-4 py-2 my-5 rounded ml-2">Poner en Espera</button>
+                        <button data-id="${solicitud.contact_id}" class="btnHecha">Marcar como Hecha</button>
+                        <button data-id="${solicitud.contact_id}" class="btnEspera">Poner en Espera</button>
                     </td>
                 `;
                 tbody.appendChild(tr);
