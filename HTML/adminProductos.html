@@ -57,6 +57,20 @@
         </div>
     </section>
 
+    <!-- Sección de Administrar Productos Más Vendidos -->
+    <section class="adminSection">
+        <h2 class="adminSectionTitle">Administrar Productos Más Vendidos</h2>
+        <div class="adminCardContainer">
+            <div class="adminCard">
+                <div class="adminCardTitle">Productos Más Vendidos</div>
+                <button id="addBestSellingProductButton" class="adminCardButton">Agregar</button> <!-- Botón para agregar un producto a la lista de más vendidos -->
+                <button id="removeBestSellingProductButton" class="adminCardButton delete">Eliminar</button> <!-- Botón para eliminar un producto de la lista de más vendidos -->
+                <button id="listBestSellingProductsButton" class="adminCardButton">Listar</button> <!-- Botón para listar los productos más vendidos -->
+                <button id="viewBestSellingProductsButton" class="adminCardButton">Ver productos</button> <!-- Botón para ver detalles de los productos más vendidos -->
+            </div>
+        </div>
+    </section>
+
     <!-- Modal para Agregar Producto -->
     <div id="addProductModal" class="modal hidden">
         <div class="modal-content">
@@ -123,6 +137,57 @@
         </div>
     </div>
 
+    <!-- Modal para Agregar Producto a la Lista de Más Vendidos -->
+    <div id="addBestSellingProductModal" class="modal hidden">
+        <div class="modal-content">
+            <h3 class="adminCardTitle">Agregar Producto a Más Vendidos</h3>
+            <form id="addBestSellingProductForm" action="/add-best-selling-product" method="POST" class="space-y-4">
+                <div>
+                    <label for="productName" class="block text-sm font-medium text-gray-700">Nombre del Producto</label>
+                    <input type="text" id="productName" name="product_name" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+                </div>
+                <div>
+                    <label for="totalSales" class="block text-sm font-medium text-gray-700">Total de Ventas</label>
+                    <input type="number" id="totalSales" name="total_sales" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+                </div>
+                <div>
+                    <label for="lastSoldAt" class="block text-sm font-medium text-gray-700">Última Fecha de Venta</label>
+                    <input type="date" id="lastSoldAt" name="last_sold_at" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+                </div>
+                <div class="text-right">
+                    <button type="submit" class="adminCardButton">Agregar a Más Vendidos</button>
+                    <button type="button" id="closeAddBestSellingModalButton" class="adminCardButton hide">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Eliminar Producto de la Lista de Más Vendidos -->
+    <div id="deleteBestSellingProductModal" class="modal hidden">
+        <div class="modal-content">
+            <h3 class="adminCardTitle">Eliminar Producto de Más Vendidos</h3>
+            <div id="bestSellingProductList" class="space-y-4">
+                <!-- Aquí se cargarán los productos más vendidos desde la base de datos -->
+            </div>
+            <div class="text-right">
+                <button type="button" id="closeDeleteBestSellingModalButton" class="adminCardButton hide">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Listar Productos Más Vendidos -->
+    <div id="listBestSellingProductsModal" class="modal hidden">
+        <div class="modal-content">
+            <h3 class="adminCardTitle">Lista de Productos Más Vendidos</h3>
+            <div id="bestSellingProductListContainer" class="space-y-4">
+                <!-- Aquí se cargarán los productos más vendidos desde la base de datos -->
+            </div>
+            <div class="text-right">
+                <button type="button" id="closeListBestSellingModalButton" class="adminCardButton hide">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="divFooter">
@@ -169,6 +234,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="/JS/adminProductos.js" ></script>
+    <script src="/JS/adminBestSellingProducts.js"></script>
 
 </body>
 </html>

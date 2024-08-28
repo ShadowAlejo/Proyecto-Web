@@ -3,21 +3,21 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             const productos = data.products;
-            const contenedorProductos = document.querySelector('.contenedorProductos');
+            const contenedorProductos = document.querySelector('.divSeccionProductos');
 
             if (contenedorProductos) {
                 productos.forEach(producto => {
                     const imageUrl = producto.image_url || '/path/to/default/image.jpg';
                     contenedorProductos.insertAdjacentHTML('beforeend', `
-                        <div class="productoCartas bg-white shadow-2xl rounded-xl overflow-hidden min-h-[600px] max-h-[700px] transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl">
-                            <img src="${imageUrl}" alt="${producto.product_name}" class="imagen w-full h-80 object-cover mx-auto">
+                        <div class="productoCartas">
+                            <img src="${imageUrl}" alt="${producto.product_name}" class="imagen">
                             <div class="p-4">
-                                <h3 class="tituloOrdenador text-sm sm:text-lg md:text-xl font-semibold text-gray-900">${producto.product_name}</h3>
-                                <p class="descripcionRapida mt-2 text-lg sm:text-base text-gray-700 text-justify">${producto.description}</p>
-                                <p class="descripcionComponentes mt-2 text-lg sm:text-base text-gray-700 text-justify"><strong>Componentes:</strong> ${producto.components}</p>
-                                <div class="divBtn mt-4 flex justify-between items-center">
-                                    <span class="precio text-sm sm:text-lg md:text-xl font-bold text-black">$${producto.price}</span>
-                                    <button class="btnComprar bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-white py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out" data-product="${producto.product_name}" data-price="${producto.price}">Comprar</button>
+                                <h3 class="tituloOrdenador">${producto.product_name}</h3>
+                                <p class="descripcionRapida">${producto.description}</p>
+                                <p class="descripcionComponentes"><strong>Componentes:</strong> ${producto.components}</p>
+                                <div class="divBtn">
+                                    <span class="precio">$${producto.price}</span>
+                                    <button class="btnComprar" data-product="${producto.product_name}" data-price="${producto.price}">Comprar</button>
                                 </div>
                             </div>
                         </div>
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     checkSession();
-    updateCart();  
+    updateCart();
 
     // Manejador para el botón de finalizar compra
     const finalizeButton = document.querySelector('.cartButton');
@@ -262,3 +262,4 @@ function showNotification(message, type = 'success') {
         }, 500);
     }, 7000);
 }
+
