@@ -31,14 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Modal para Eliminar Producto de Más Vendidos
     const openDeleteModalButton = document.getElementById('removeBestSellingProductButton');
     const closeDeleteModalButton = document.getElementById('closeDeleteBestSellingModalButton');
     const deleteProductModal = document.getElementById('deleteBestSellingProductModal');
-    const deleteModalContent = deleteProductModal.querySelector('.modal-content');
     const productList = document.getElementById('bestSellingProductList');
 
-    // Abrir el modal de eliminar productos de más vendidos
     if (openDeleteModalButton && deleteProductModal) {
         openDeleteModalButton.addEventListener('click', () => {
             deleteProductModal.classList.remove('hidden');
@@ -47,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Cerrar el modal de eliminar productos de más vendidos
     if (closeDeleteModalButton && deleteProductModal) {
         closeDeleteModalButton.addEventListener('click', () => {
             deleteProductModal.classList.remove('show');
@@ -55,22 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Cerrar el modal de eliminar productos de más vendidos al hacer clic fuera del contenido
-    if (deleteProductModal) {
-        deleteProductModal.addEventListener('click', (event) => {
-            if (!deleteModalContent.contains(event.target)) {
-                deleteProductModal.classList.remove('show');
-                deleteProductModal.classList.add('hidden');
-            }
-        });
-    }
-
-    // Función para cargar productos de más vendidos en el modal de eliminación
     function loadBestSellingProductsForDeletion() {
         fetch('/get-best-selling-products')
             .then(response => response.json())
             .then(data => {
-                productList.innerHTML = ''; // Limpiar la lista de productos
+                productList.innerHTML = '';
                 data.products.forEach(product => {
                     const productItem = document.createElement('div');
                     productItem.className = 'productoEliminar flex justify-between items-center';
@@ -81,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     productList.appendChild(productItem);
                 });
 
-                // Asignar eventos de clic a los botones de eliminación
                 const deleteButtons = document.querySelectorAll('.btnEliminar');
                 deleteButtons.forEach(button => {
                     button.addEventListener('click', (event) => {
@@ -95,28 +79,20 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    // Función para eliminar un producto de más vendidos de la base de datos
     function deleteBestSellingProduct(productId) {
         fetch(`/delete-best-selling-product/${productId}`, {
             method: 'DELETE',
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error al eliminar el producto de más vendidos: ${response.statusText}`);
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
             if (data.success) {
-                showNotification('Producto de más vendidos eliminado correctamente.');
-                loadBestSellingProductsForDeletion(); // Recargar la lista de productos
+                loadBestSellingProductsForDeletion();
             } else {
-                showNotification('Error al eliminar el producto de más vendidos.', 'error');
+                alert('Error al eliminar el producto');
             }
         })
         .catch(error => {
             console.error('Error al eliminar el producto de más vendidos:', error);
-            showNotification('Error al eliminar el producto de más vendidos.', 'error');
         });
     }
 });
@@ -138,9 +114,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     products.forEach(product => {
                         productListContainer.insertAdjacentHTML('beforeend', `
                             <div class="productoEliminar">
-                                <span>${product.product_name}</span>
-                                <span>${product.total_sales} ventas</span>
-                                <span>Última venta: ${product.last_sold_at}</span>
+                                <span><strong>ID:</strong> ${product.product_id}</span>
+                                <span><strong>Nombre:</strong> ${product.product_name}</span>
+                                <span><strong>Descripción:</strong> ${product.description}</span>
+                                <span><strong>Precio:</strong> $${product.price}</span>
+                                <span><strong>Stock:</strong> ${product.stock}</span>
+                                <span><strong>Componentes:</strong> ${product.components}</span>
                             </div>
                         `);
                     });
@@ -149,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     listProductsModal.classList.add('show');
                 })
                 .catch(error => {
-                    console.error('Error al obtener los productos de más vendidos:', error);
+                    console.error('Error al obtener los productos:', error);
                 });
         });
     }

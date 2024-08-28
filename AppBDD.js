@@ -325,67 +325,31 @@ app.post('/add-best-selling-product', (req, res) => {
     });
 });
 
-function loadBestSellingProductsForDeletion() {
-    fetch('/get-best-selling-products')
-        .then(response => response.json())
-        .then(data => {
-            productList.innerHTML = ''; // Limpiar la lista de productos
-            data.products.forEach(product => {
-                const productItem = document.createElement('div');
-                productItem.className = 'productoEliminar flex justify-between items-center';
-                productItem.innerHTML = `
-                    <span>${product.product_name}</span>
-                    <button class="adminCardButton btnEliminar" data-product-id="${product.best_selling_id}">Eliminar</button>
-                `;
-                productList.appendChild(productItem);
-            });
+// Ruta para obtener los productos más vendidos
+app.get('/get-best-selling-products', (req, res) => {
+    const query = `SELECT b.best_selling_id, p.product_id, p.product_name, p.description, p.price, p.stock, p.components, p.image_url 
+                   FROM best_selling_products b
+                   JOIN products p ON b.product_id = p.product_id`;
 
-            // Asignar eventos de clic a los botones de eliminación
-            const deleteButtons = document.querySelectorAll('.btnEliminar');
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', (event) => {
-                    const productId = event.target.getAttribute('data-product-id');
-                    deleteBestSellingProduct(productId);
-                });
-            });
-        })
-        .catch(error => {
-            console.error('Error al cargar los productos de más vendidos para eliminación:', error);
-        });
-}
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('Error al obtener los productos más vendidos:', err);
+            return res.status(500).json({ error: 'Error al obtener los productos más vendidos' });
+        }
 
-function deleteBestSellingProduct(productId) {
-    fetch(`/delete-best-selling-product/${productId}`, {
-        method: 'DELETE',
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Error al eliminar el producto de más vendidos: ${response.statusText}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.success) {
-            showNotification('Producto de más vendidos eliminado correctamente.');
-            loadBestSellingProductsForDeletion(); // Recargar la lista de productos
-        } else {
-            showNotification('Error al eliminar el producto de más vendidos.', 'error');
-        }
-    })
-    .catch(error => {
-        console.error('Error al eliminar el producto de más vendidos:', error);
-        showNotification('Error al eliminar el producto de más vendidos.', 'error');
+        res.json({ products: results });
     });
-}
+});
 
+// Ruta para eliminar un producto de más vendidos
 app.delete('/delete-best-selling-product/:id', (req, res) => {
-    const productId = req.params.id;
+    const bestSellingId = req.params.id;
     const query = 'DELETE FROM best_selling_products WHERE best_selling_id = ?';
 
-    connection.query(query, [productId], (err, result) => {
+    connection.query(query, [bestSellingId], (err, result) => {
         if (err) {
             console.error('Error al eliminar el producto de más vendidos:', err);
-            return res.status(500).send('Error al eliminar el producto de más vendidos.');
+            return res.status(500).json({ success: false, message: 'Error al eliminar el producto de más vendidos.' });
         }
         res.status(200).json({ success: true, message: 'Producto eliminado correctamente.' });
     });

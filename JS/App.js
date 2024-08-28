@@ -4,6 +4,43 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             const productos = data.products;
             const contenedorProductos = document.querySelector('.divSeccionProductos');
+            const contenedorProductosMasVendidos = document.querySelector('.contenedorProductosMasVendidos');
+
+            if (contenedorProductosMasVendidos) {
+                // Realizar la carga dinámica de la tabla "best_selling_products"
+                fetch('/get-best-selling-products')
+                    .then(response => response.json())
+                    .then(data => {
+                        const productos = data.products;
+        
+                        productos.forEach(producto => {
+                            // Convertir price a número, manejar null o undefined
+                            const price = producto.price ? parseFloat(producto.price) : 0;
+                            const imageUrl = producto.image_url || '/path/to/default/image.jpg'; // Proveer una URL por defecto si no hay imagen
+        
+                            const productHTML = `
+                                <div class="productoCartas">
+                                    <img src="${imageUrl}" alt="${producto.product_name}" class="imagen">
+                                    <div class="p-4">
+                                        <h3 class="tituloOrdenador">${producto.product_name}</h3>
+                                        <p class="descripcionRapida">${producto.description}</p>
+                                        <p class="descripcionComponentes"><strong>Componentes:</strong> ${producto.components}</p>
+                                        <div class="divBtn">
+                                            <span class="precio">$${producto.price}</span>
+                                            <button class="btnComprar" data-product="${producto.product_name}" data-price="${producto.price}">Comprar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            contenedorProductosMasVendidos.insertAdjacentHTML('beforeend', productHTML);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error al obtener los productos más vendidos:', error);
+                    });
+            } else {
+                console.log('El contenedor de productos más vendidos no se encuentra en el HTML.');
+            }
 
             if (contenedorProductos) {
                 productos.forEach(producto => {
