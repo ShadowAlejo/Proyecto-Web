@@ -1,154 +1,167 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('/get-products')
-        .then(response => response.json())
-        .then(data => {
-            const productos = data.products;
-            const contenedorProductos = document.querySelector('.divSeccionProductos');
-            const contenedorProductosMasVendidos = document.querySelector('.contenedorProductosMasVendidos');
-            const divSeccionProductosOferta = document.querySelector('.divSeccionProductosOferta');
+    // Asignar eventos a los botones de productos estáticos
+    assignBuyButtonEvents();
+    assignStaticBuyButtonEvents();
+    assignOfferBuyButtonEvents(); // Nueva función para los botones de oferta
 
-            if (contenedorProductosMasVendidos) {
-                // Realizar la carga dinámica de la tabla "best_selling_products"
-                fetch('/get-best-selling-products')
-                    .then(response => response.json())
-                    .then(data => {
-                        const productos = data.products;
-        
-                        productos.forEach(producto => {
-                            // Convertir price a número, manejar null o undefined
-                            const price = producto.price ? parseFloat(producto.price) : 0;
-                            const imageUrl = producto.image_url || '/path/to/default/image.jpg'; // Proveer una URL por defecto si no hay imagen
-        
-                            const productHTML = `
-                                <div class="productoCartas">
-                                    <img src="${imageUrl}" alt="${producto.product_name}" class="imagen">
-                                    <div class="p-4">
-                                        <h3 class="tituloOrdenador">${producto.product_name}</h3>
-                                        <p class="descripcionRapida">${producto.description}</p>
-                                        <p class="descripcionComponentes"><strong>Componentes:</strong> ${producto.components}</p>
-                                        <div class="divBtn">
-                                            <span class="precio">$${producto.price}</span>
-                                            <button class="btnComprar" data-product="${producto.product_name}" data-price="${producto.price}">Comprar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            `;
-                            contenedorProductosMasVendidos.insertAdjacentHTML('beforeend', productHTML);
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Error al obtener los productos más vendidos:', error);
-                    });
-            } else {
-                console.log('El contenedor de productos más vendidos no se encuentra en el HTML.');
-            }
-
-            //Carga dinamica de productos en oferta
-            if (divSeccionProductosOferta) {
-                // Realizar la carga dinámica de la tabla "ofert_products"
-                fetch('/get-discounted-products')
-                    .then(response => response.json())
-                    .then(data => {
-                        const productos = data.products;
-        
-                        productos.forEach(producto => {
-                            // Convertir los precios a números y manejar null o undefined
-                            const precioAntes = producto.ofert_price ? parseFloat(producto.ofert_price).toFixed(2) : '0.00';
-                            const precioAhora = producto.ofert_price_now ? parseFloat(producto.ofert_price_now).toFixed(2) : '0.00';
-                            const imageUrl = producto.ofert_image_url || '/path/to/default/image.jpg'; // URL por defecto si no hay imagen
-        
-                            const productHTML = `
-                                <div class="productoCartasOferta">
-                                    <img src="${imageUrl}" alt="${producto.ofert_product_name}" class="imagenOferta">
-                                    <div class="p-4">
-                                        <h3 class="tituloOrdenadorOferta">${producto.ofert_product_name}</h3>
-                                        <p class="descripcionRapidaOferta">${producto.ofert_description}</p>
-                                        <p class="descripcionComponentesOferta"><strong>Componentes:</strong> ${producto.ofert_components}</p>
-                                        <div class="divBtnOferta">
-                                            <span class="precioOfertaAntes">Antes: $${precioAntes}</span>
-                                            <span class="precioOfertaDespues" id="precioOferta">Ahora: $${precioAhora}</span>
-                                            <button class="btnComprarOferta" data-product="${producto.ofert_product_name}" data-price="${precioAhora}">Comprar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            `;
-                            divSeccionProductosOferta.insertAdjacentHTML('beforeend', productHTML);
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Error al obtener los productos en oferta:', error);
-                    });
-            } else {
-                console.log('El contenedor de productos en oferta no se encuentra en el HTML.');
-            }
-            
-            if (contenedorProductos) {
-                productos.forEach(producto => {
-                    const imageUrl = producto.image_url || '/path/to/default/image.jpg';
-                    contenedorProductos.insertAdjacentHTML('beforeend', `
-                        <div class="productoCartas">
-                            <img src="${imageUrl}" alt="${producto.product_name}" class="imagen">
-                            <div class="p-4">
-                                <h3 class="tituloOrdenador">${producto.product_name}</h3>
-                                <p class="descripcionRapida">${producto.description}</p>
-                                <p class="descripcionComponentes"><strong>Componentes:</strong> ${producto.components}</p>
-                                <div class="divBtn">
-                                    <span class="precio">$${producto.price}</span>
-                                    <button class="btnComprar" data-product="${producto.product_name}" data-price="${producto.price}">Comprar</button>
-                                </div>
-                            </div>
-                        </div>
-                    `);
-                });
-
-                const buyButtons = document.querySelectorAll('.btnComprar');
-                buyButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const product = button.getAttribute('data-product');
-                        const price = parseFloat(button.getAttribute('data-price'));
-                        addToCart(product, price);
-                    });
-                });
-
-            } else {
-                console.log('No se encontró el contenedor para los productos.');
-            }
-        })
-        .catch(error => {
-            console.error('Error al obtener los productos:', error);
-        });
+    // Cargar productos dinámicamente
+    loadDynamicProducts();
 
     checkSession();
     updateCart();
-
-    // Manejador para el botón de finalizar compra
-    const finalizeButton = document.querySelector('.cartButton');
-    if (finalizeButton) {
-        finalizeButton.addEventListener('click', (event) => {
-            event.preventDefault();
-            checkSessionAndGenerateInvoice();
-        });
-    }
-
-    // Manejador para el botón de cerrar sesión
-    const logoutNav = document.getElementById('logoutNav');
-    if (logoutNav) {
-        logoutNav.addEventListener('click', (event) => {
-            event.preventDefault();
-            logoutUser();
-        });
-    }
 });
 
+// Función para cargar productos dinámicos y asignar eventos
+function loadDynamicProducts() {
+    // Cargar productos, productos más vendidos y productos en oferta
+    Promise.all([
+        fetch('/get-products').then(response => response.json()),
+        fetch('/get-best-selling-products').then(response => response.json()),
+        fetch('/get-discounted-products').then(response => response.json())
+    ])
+    .then(([productosData, bestSellingData, discountedData]) => {
+        const productos = productosData.products;
+        const bestSellingProducts = bestSellingData.products;
+        const discountedProducts = discountedData.products;
+
+        const contenedorProductos = document.querySelector('.divSeccionProductos');
+        const contenedorProductosMasVendidos = document.querySelector('.contenedorProductosMasVendidos');
+        const divSeccionProductosOferta = document.querySelector('.divSeccionProductosOferta');
+
+        // Cargar productos más vendidos
+        if (contenedorProductosMasVendidos) {
+            bestSellingProducts.forEach(producto => {
+                const price = producto.price ? parseFloat(producto.price) : 0;
+                const imageUrl = producto.image_url || '/path/to/default/image.jpg';
+                const productHTML = `
+                    <div class="productoCartas">
+                        <img src="${imageUrl}" alt="${producto.product_name}" class="imagen">
+                        <div class="p-4">
+                            <h3 class="tituloOrdenador">${producto.product_name}</h3>
+                            <p class="descripcionRapida">${producto.description}</p>
+                            <p class="descripcionComponentes"><strong>Componentes:</strong> ${producto.components}</p>
+                            <div class="divBtn">
+                                <span class="precio">$${producto.price}</span>
+                                <button class="btnComprar" data-product="${producto.product_name}" data-price="${producto.price}">Comprar</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                contenedorProductosMasVendidos.insertAdjacentHTML('beforeend', productHTML);
+            });
+        }
+
+        // Cargar productos en oferta
+        if (divSeccionProductosOferta) {
+            discountedProducts.forEach(producto => {
+                const precioAntes = producto.ofert_price ? parseFloat(producto.ofert_price).toFixed(2) : '0.00';
+                const precioAhora = producto.ofert_price_now ? parseFloat(producto.ofert_price_now).toFixed(2) : '0.00';
+                const imageUrl = producto.ofert_image_url || '/path/to/default/image.jpg';
+                const productHTML = `
+                    <div class="productoCartasOferta">
+                        <img src="${imageUrl}" alt="${producto.ofert_product_name}" class="imagenOferta">
+                        <div class="p-4">
+                            <h3 class="tituloOrdenadorOferta">${producto.ofert_product_name}</h3>
+                            <p class="descripcionRapidaOferta">${producto.ofert_description}</p>
+                            <p class="descripcionComponentesOferta"><strong>Componentes:</strong> ${producto.ofert_components}</p>
+                            <div class="divBtnOferta">
+                                <span class="precioOfertaAntes">Antes: $${precioAntes}</span>
+                                <span class="precioOfertaDespues" id="precioOferta">Ahora: $${precioAhora}</span>
+                                <button class="btnComprarOferta" data-product="${producto.ofert_product_name}" data-price="${precioAhora}">Comprar</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                divSeccionProductosOferta.insertAdjacentHTML('beforeend', productHTML);
+            });
+        }
+
+        // Cargar productos generales
+        if (contenedorProductos) {
+            productos.forEach(producto => {
+                const imageUrl = producto.image_url || '/path/to/default/image.jpg';
+                contenedorProductos.insertAdjacentHTML('beforeend', `
+                    <div class="productoCartas">
+                        <img src="${imageUrl}" alt="${producto.product_name}" class="imagen">
+                        <div class="p-4">
+                            <h3 class="tituloOrdenador">${producto.product_name}</h3>
+                            <p class="descripcionRapida">${producto.description}</p>
+                            <p class="descripcionComponentes"><strong>Componentes:</strong> ${producto.components}</p>
+                            <div class="divBtn">
+                                <span class="precio">$${producto.price}</span>
+                                <button class="btnComprar" data-product="${producto.product_name}" data-price="${producto.price}">Comprar</button>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            });
+        }
+
+        // Asignar eventos de clic después de cargar todos los productos dinámicos
+        assignBuyButtonEvents();
+        assignOfferBuyButtonEvents(); // Asignar eventos a los nuevos botones de oferta
+    })
+    .catch(error => {
+        console.error('Error al cargar los productos:', error);
+    });
+}
+
+// Función para asignar eventos a los botones "Comprar" de productos dinámicos
+function assignBuyButtonEvents() {
+    const buyButtons = document.querySelectorAll('.btnComprar');
+    console.log('Buy buttons found:', buyButtons); // Verifica cuántos botones se encuentran
+    buyButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const product = button.getAttribute('data-product');
+            const price = parseFloat(button.getAttribute('data-price'));
+            console.log(`Producto: ${product}, Precio: ${price}`); // Verifica que los datos se están obteniendo correctamente
+            addToCart(product, price);
+        });
+    });
+}
+
+// Nueva función para asignar eventos a los botones "Comprar" de productos en oferta
+function assignOfferBuyButtonEvents() {
+    const offerBuyButtons = document.querySelectorAll('.btnComprarOferta');
+    console.log('Offer buy buttons found:', offerBuyButtons); // Verifica cuántos botones de oferta se encuentran
+    offerBuyButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const product = button.getAttribute('data-product');
+            const price = parseFloat(button.getAttribute('data-price'));
+            console.log(`Producto en oferta: ${product}, Precio: ${price}`); // Verifica que los datos se están obteniendo correctamente
+            addToCart(product, price);
+        });
+    });
+}
+
+// Función para asignar eventos a los botones "Comprar" de productos estáticos
+function assignStaticBuyButtonEvents() {
+    const staticBuyButtons = document.querySelectorAll('.btnComprarMasVendido');
+    console.log('Static buy buttons found:', staticBuyButtons); // Verifica cuántos botones estáticos se encuentran
+    staticBuyButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const product = button.getAttribute('data-product');
+            const price = parseFloat(button.getAttribute('data-price'));
+            console.log(`Producto estático: ${product}, Precio: ${price}`); // Verifica que los datos se están obteniendo correctamente
+            addToCart(product, price);
+        });
+    });
+}
+
+// Carrito de compras
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+// Función para agregar un producto al carrito
 function addToCart(product, price) {
+    console.log(`Añadiendo al carrito: ${product} - ${price}`);
     const existingProduct = cart.find(item => item.product === product);
 
     if (existingProduct) {
         existingProduct.quantity += 1;
+        console.log(`Producto existente. Nueva cantidad: ${existingProduct.quantity}`);
     } else {
         cart.push({ product, price, quantity: 1 });
+        console.log(`Producto añadido. Carrito ahora tiene: ${cart.length} productos`);
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -157,6 +170,7 @@ function addToCart(product, price) {
     showNotification(`${product} ha sido agregado al carrito.`);
 }
 
+// Función para actualizar el carrito
 function updateCart() {
     const cartItems = document.getElementById('cartItems');
     const cartCount = document.getElementById('cartCount');
@@ -190,16 +204,19 @@ function updateCart() {
     }
 }
 
+// Función para eliminar un producto del carrito
 function removeFromCart(product) {
     cart = cart.filter(item => item.product !== product);
     saveCart();
     updateCart();
 }
 
+// Función para guardar el carrito en localStorage
 function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
+// Función para verificar la sesión del usuario
 function checkSession() {
     fetch('/session')
         .then(response => response.json())
@@ -213,6 +230,7 @@ function checkSession() {
         });
 }
 
+// Función para actualizar la barra de navegación según el estado de sesión del usuario
 function updateNavForLoggedInUser(user) {
     const loginNav = document.getElementById('loginNav');
     const registerNav = document.getElementById('registerNav');
@@ -250,6 +268,7 @@ function updateNavForLoggedInUser(user) {
     }
 }
 
+// Función para cerrar la sesión del usuario
 function logoutUser() {
     fetch('/logout', { method: 'POST' })
         .then(response => {
@@ -262,6 +281,7 @@ function logoutUser() {
         });
 }
 
+// Función para verificar la sesión y generar una factura
 function checkSessionAndGenerateInvoice() {
     fetch('/session')
         .then(response => response.json())
@@ -279,6 +299,7 @@ function checkSessionAndGenerateInvoice() {
         });
 }
 
+// Función para generar la factura de la compra
 function generateInvoice(user) {
     if (!user || cart.length === 0) {
         console.error('Condiciones no cumplidas para generar la factura.');
@@ -320,6 +341,7 @@ function generateInvoice(user) {
     showNotification('Factura generada y guardada.');
 }
 
+// Función para mostrar notificaciones
 function showNotification(message, type = 'success') {
     const notification = document.createElement('div');
     notification.className = `notification ${type === 'error' ? 'error' : ''}`;
@@ -339,4 +361,3 @@ function showNotification(message, type = 'success') {
         }, 500);
     }, 7000);
 }
-
