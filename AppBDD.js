@@ -421,6 +421,78 @@ app.get('/get-discounted-products', (req, res) => {
     });
 });
 
+// Ruta para guardar la factura en la base de datos
+app.post('/save-invoice', (req, res) => {
+    const { user_id, cart } = req.body;
+
+    if (!user_id || !cart || cart.length === 0) {
+        return res.status(400).json({ success: false, message: 'Datos incompletos para guardar la factura.' });
+    }
+
+    const query = 'INSERT INTO cart (user_id, product_id, quantity, ofert_product_id) VALUES (?, ?, ?, ?)';
+    let hasError = false;
+    let processedItems = 0;
+
+    const getProductOrOfferId = (productName, callback) => {
+        const queryProduct = 'SELECT product_id FROM products WHERE LOWER(product_name) = LOWER(?)';
+        const queryOffer = 'SELECT ofert_product_id FROM ofert_products WHERE LOWER(ofert_product_name) = LOWER(?)';
+
+        connection.query(queryProduct, [productName], (err, resultProduct) => {
+            if (err) return callback(err, null);
+
+            if (resultProduct.length > 0) {
+                return callback(null, { productId: resultProduct[0].product_id });
+            }
+
+            connection.query(queryOffer, [productName], (err, resultOffer) => {
+                if (err) return callback(err, null);
+
+                if (resultOffer.length > 0) {
+                    return callback(null, { ofertProductId: resultOffer[0].ofert_product_id });
+                }
+
+                // Si no se encuentra ni en productos ni en ofertas, se trata como carta estática
+                return callback(null, { staticProduct: true });
+            });
+        });
+    };
+
+    cart.forEach(item => {
+        getProductOrOfferId(item.product, (err, ids) => {
+            processedItems++;
+
+            if (err) {
+                hasError = true;
+                console.error('Error al recuperar el ID para el producto:', item.product, err);
+                if (processedItems === cart.length) {
+                    return res.status(500).json({ success: false, message: 'Error al recuperar el ID de un producto.' });
+                }
+                return;
+            }
+
+            const productId = ids.productId || null;
+            const ofertProductId = ids.ofertProductId || null;
+
+            // Si es una carta estática, se permite la inserción sin un ID
+            if (ids.staticProduct || productId || ofertProductId) {
+                connection.query(query, [user_id, productId, item.quantity, ofertProductId], (err, result) => {
+                    if (err) {
+                        hasError = true;
+                        console.error('Error al guardar la factura:', err);
+                        if (processedItems === cart.length) {
+                            return res.status(500).json({ success: false, message: 'Error al guardar la factura.' });
+                        }
+                    } else if (processedItems === cart.length && !hasError) {
+                        res.status(200).json({ success: true, message: 'Factura guardada exitosamente.' });
+                    }
+                });
+            } else if (processedItems === cart.length) {
+                res.status(500).json({ success: false, message: 'No se pudo encontrar el ID de algunos productos.' });
+            }
+        });
+    });
+});
+
 app.listen(3001, () => {
     console.log('Servidor corriendo en http://localhost:3001');
 });

@@ -9,6 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     checkSession();
     updateCart();
+
+    // Manejador para el botón de finalizar compra
+    const finalizeButton = document.querySelector('.cartButton');
+    if (finalizeButton) {
+        finalizeButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            checkSessionAndGenerateInvoice();
+        });
+    }
 });
 
 // Función para cargar productos dinámicos y asignar eventos
@@ -316,7 +325,7 @@ function generateInvoice(user) {
     doc.setFont('times');
     doc.setFontSize(18);
     doc.text(20, 20, 'Factura de Compra');
-    
+
     doc.setFontSize(12);
     doc.text(20, 30, `Nombre: ${name}`);
     doc.text(20, 40, `Correo Electrónico: ${email}`);
@@ -332,6 +341,29 @@ function generateInvoice(user) {
 
     doc.setFontSize(14);
     doc.text(20, y, `Total: $${total.toFixed(2)}`);
+
+    // Enviar datos del carrito al backend para guardarlos en la base de datos
+    fetch('/save-invoice', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            user_id: user.id,  // Enviar el ID del usuario
+            cart: cart         // Enviar el contenido del carrito
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('Factura guardada en la base de datos.');
+        } else {
+            console.error('Error al guardar la factura:', data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error en la solicitud para guardar la factura:', error);
+    });
 
     cart = [];
     saveCart();
