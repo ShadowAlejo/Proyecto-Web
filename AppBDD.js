@@ -355,6 +355,71 @@ app.delete('/delete-best-selling-product/:id', (req, res) => {
     });
 });
 
+// Ruta para agregar un producto en oferta
+app.post('/add-discounted-product', (req, res) => {
+    const { product_name, description, components, price_before, price_now, stock, image_url } = req.body;
+
+    // Validar que todos los campos requeridos estén presentes
+    if (!product_name || !description || !components || !price_before || !price_now || !stock || !image_url) {
+        return res.status(400).send('Todos los campos son obligatorios.');
+    }
+
+    // Query para insertar los datos en la tabla 'ofert_products'
+    const query = `INSERT INTO ofert_products 
+    (ofert_product_name, ofert_description, ofert_price, ofert_price_now, ofert_stock, ofert_image_url, ofert_components) 
+    VALUES (?, ?, ?, ?, ?, ?, ?)`;
+
+    connection.query(query, [product_name, description, price_before, price_now, stock, image_url, components], (err, result) => {
+        if (err) {
+            console.error('Error al agregar el producto en oferta:', err);
+            return res.status(500).send('Error al agregar el producto en oferta.');
+        }
+        res.status(200).send('Producto agregado exitosamente.');
+    });
+});
+
+app.get('/list-discounted-products', (req, res) => {
+    const query = `SELECT ofert_product_id, ofert_product_name, ofert_description, ofert_price, ofert_price_now, ofert_stock, ofert_image_url, ofert_components 
+                   FROM ofert_products`;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('Error al obtener los productos en oferta:', err);
+            return res.status(500).json({ error: 'Error al obtener los productos en oferta' });
+        }
+
+        // Enviar los resultados como respuesta JSON
+        res.json({ products: results });
+    });
+});
+
+app.delete('/delete-discounted-product/:id', (req, res) => {
+    const productId = req.params.id;
+
+    const query = 'DELETE FROM ofert_products WHERE ofert_product_id = ?';
+    connection.query(query, [productId], (err, result) => {
+        if (err) {
+            console.error('Error al eliminar el producto:', err);
+            return res.status(500).json({ success: false, message: 'Error al eliminar el producto.' });
+        }
+
+        res.status(200).json({ success: true, message: 'Producto eliminado correctamente.' });
+    });
+});
+
+app.get('/get-discounted-products', (req, res) => {
+    const query = `SELECT ofert_product_id, ofert_product_name, ofert_description, ofert_components, ofert_price, ofert_price_now, ofert_image_url 
+                   FROM ofert_products`;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('Error al obtener los productos en oferta:', err);
+            return res.status(500).json({ error: 'Error al obtener los productos en oferta' });
+        }
+
+        res.json({ products: results });
+    });
+});
 
 app.listen(3001, () => {
     console.log('Servidor corriendo en http://localhost:3001');

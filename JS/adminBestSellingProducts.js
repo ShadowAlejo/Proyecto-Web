@@ -51,6 +51,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Cerrar el modal al hacer clic fuera de él
+    window.addEventListener('click', (event) => {
+        if (event.target === deleteProductModal) {
+            deleteProductModal.classList.remove('show');
+            deleteProductModal.classList.add('hidden');
+        }
+    });
+
     function loadBestSellingProductsForDeletion() {
         fetch('/get-best-selling-products')
             .then(response => response.json())
@@ -76,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(error => {
                 console.error('Error al cargar los productos de más vendidos para eliminación:', error);
+                showNotification('Error al cargar los productos de más vendidos para eliminación', 'error');
             });
     }
 
@@ -86,13 +95,15 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
+                showNotification('Producto eliminado correctamente', 'success');
                 loadBestSellingProductsForDeletion();
             } else {
-                alert('Error al eliminar el producto');
+                showNotification('Error al eliminar el producto', 'error');
             }
         })
         .catch(error => {
             console.error('Error al eliminar el producto de más vendidos:', error);
+            showNotification('Ocurrió un error al intentar eliminar el producto', 'error');
         });
     }
 });
@@ -129,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                 .catch(error => {
                     console.error('Error al obtener los productos:', error);
+                    showNotification('Error al obtener los productos', 'error');
                 });
         });
     }
@@ -139,7 +151,15 @@ document.addEventListener('DOMContentLoaded', () => {
             listProductsModal.classList.add('hidden');
         });
     }
-}); 
+
+    // Cerrar el modal al hacer clic fuera de él
+    window.addEventListener('click', (event) => {
+        if (event.target === listProductsModal) {
+            listProductsModal.classList.remove('show');
+            listProductsModal.classList.add('hidden');
+        }
+    });
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     const viewProductsButton = document.getElementById('viewBestSellingProductsButton');
@@ -153,11 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Función para mostrar notificaciones (puedes personalizarla)
-function showNotification(message, type = 'success') {
-    alert(message); // Puedes usar una librería o implementar una notificación más elegante
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('addBestSellingProductModal');
     const modalContent = modal.querySelector('.modal-content');
@@ -170,3 +185,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// Función para mostrar notificaciones
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+
+    // Mostrar la notificación
+    requestAnimationFrame(() => {
+        notification.classList.add('show');
+    });
+
+    // Ocultar la notificación después de 6 segundos
+    setTimeout(() => {
+        notification.classList.remove('show');
+        notification.addEventListener('transitionend', () => {
+            notification.remove();
+        });
+    }, 6000);
+}

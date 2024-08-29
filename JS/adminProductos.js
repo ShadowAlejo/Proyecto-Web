@@ -201,7 +201,15 @@ document.addEventListener('DOMContentLoaded', () => {
             listProductsModal.classList.add('hidden');
         });
     }
-}); 
+
+    // Cerrar el modal al hacer clic fuera de él
+    window.addEventListener('click', (event) => {
+        if (event.target === listProductsModal) {
+            listProductsModal.classList.remove('show');
+            listProductsModal.classList.add('hidden');
+        }
+    });
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     const viewProductsButton = document.getElementById('viewProductsButton');

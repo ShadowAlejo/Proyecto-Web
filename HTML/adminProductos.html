@@ -71,6 +71,20 @@
         </div>
     </section>
 
+    <!-- Sección de Administrar Productos en Oferta -->
+    <section class="adminSection">
+        <h2 class="adminSectionTitle">Administrar Productos en Oferta</h2>
+        <div class="adminCardContainer">
+            <div class="adminCard">
+                <div class="adminCardTitle">Productos en Oferta</div>
+                <button id="addDiscountedProductButton" class="adminCardButton">Agregar</button> <!-- Botón para agregar un producto a la lista de productos en oferta -->
+                <button id="removeDiscountedProductButton" class="adminCardButton delete">Eliminar</button> <!-- Botón para eliminar un producto de la lista de productos en oferta -->
+                <button id="listDiscountedProductsButton" class="adminCardButton">Listar</button> <!-- Botón para listar los productos en oferta -->
+                <button id="viewDiscountedProductsButton" class="adminCardButton">Ver productos</button> <!-- Botón para ver detalles de los productos en oferta -->
+            </div>
+        </div>
+    </section>
+
     <!-- Modal para Agregar Producto -->
     <div id="addProductModal" class="modal hidden">
         <div class="modal-content">
@@ -188,6 +202,76 @@
         </div>
     </div>
 
+    <!-- Modal para Agregar Producto en Oferta -->
+    <div id="addDiscountedProductModal" class="modal hidden">
+        <div class="modal-content">
+            <h3 class="adminCardTitle">Agregar Producto en Oferta</h3>
+            <form id="addDiscountedProductForm" action="/add-discounted-product" method="POST" class="space-y-4">
+                <div>
+                    <label for="discountedProductName" class="block text-sm font-medium text-gray-700">Nombre del Producto</label>
+                    <input type="text" id="discountedProductName" name="product_name" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+                </div>
+                <div>
+                    <label for="discountedProductDescription" class="block text-sm font-medium text-gray-700">Descripción</label>
+                    <textarea id="discountedProductDescription" name="description" class="contactTextarea" rows="3" required></textarea>
+                </div>
+                <div>
+                    <label for="discountedProductComponents" class="block text-sm font-medium text-gray-700">Componentes</label>
+                    <textarea id="discountedProductComponents" name="components" class="contactTextarea" rows="3" required></textarea>
+                </div>                
+                <div>
+                    <label for="discountedProductPriceBefore" class="block text-sm font-medium text-gray-700">Precio Antes</label>
+                    <input type="number" id="discountedProductPriceBefore" name="price_before" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+                </div>
+                <div>
+                    <label for="discountedProductPriceNow" class="block text-sm font-medium text-gray-700">Precio Ahora</label>
+                    <input type="number" id="discountedProductPriceNow" name="price_now" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+                </div>                
+                <div>
+                    <label for="discountedProductStock" class="block text-sm font-medium text-gray-700">Stock</label>
+                    <input type="number" id="discountedProductStock" name="stock" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+                </div>
+                <div>
+                    <label for="discountedImageURL" class="block text-sm font-medium text-gray-700">URL de la Imagen del Producto</label>
+                    <input type="text" id="discountedImageURL" name="image_url" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Ingresa la URL de la imagen" required>
+                    <div id="discountedImagePreview" class="mt-2">
+                        <img id="discountedPreviewImg" src="" alt="Previsualización de la imagen" class="hidden w-40 h-40 object-cover rounded-md">
+                    </div>
+                </div>
+                <div class="text-right">
+                    <button type="submit" class="adminCardButton">Agregar Producto en Oferta</button>
+                    <button type="button" id="closeDiscountedModalButton" class="adminCardButton hide">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Eliminar Producto en Oferta -->
+    <div id="deleteDiscountedProductModal" class="modal hidden">
+        <div class="modal-content">
+            <h3 class="adminCardTitle">Eliminar Producto en Oferta</h3>
+            <div id="discountedProductList" class="space-y-4">
+                <!-- Aquí se cargarán los productos desde la base de datos -->
+            </div>
+            <div class="text-right">
+                <button type="button" id="closeDeleteDiscountedModalButton" class="adminCardButton hide">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Listar Productos en Oferta -->
+    <div id="listDiscountedProductsModal" class="modal hidden">
+        <div class="modal-content">
+            <h3 class="adminCardTitle">Lista de Productos en Oferta</h3>
+            <div id="discountedProductListContainer" class="space-y-4">
+                <!-- Aquí se cargarán los productos desde la base de datos -->
+            </div>
+            <div class="text-right">
+                <button type="button" id="closeListDiscountedModalButton" class="adminCardButton hide">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="divFooter">
@@ -235,6 +319,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="/JS/adminProductos.js" ></script>
     <script src="/JS/adminBestSellingProducts.js"></script>
+    <script src="/JS/adminProductsOferts.js"></script>
 
 </body>
 </html>

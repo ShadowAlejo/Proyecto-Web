@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const productos = data.products;
             const contenedorProductos = document.querySelector('.divSeccionProductos');
             const contenedorProductosMasVendidos = document.querySelector('.contenedorProductosMasVendidos');
+            const divSeccionProductosOferta = document.querySelector('.divSeccionProductosOferta');
 
             if (contenedorProductosMasVendidos) {
                 // Realizar la carga dinámica de la tabla "best_selling_products"
@@ -42,6 +43,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('El contenedor de productos más vendidos no se encuentra en el HTML.');
             }
 
+            //Carga dinamica de productos en oferta
+            if (divSeccionProductosOferta) {
+                // Realizar la carga dinámica de la tabla "ofert_products"
+                fetch('/get-discounted-products')
+                    .then(response => response.json())
+                    .then(data => {
+                        const productos = data.products;
+        
+                        productos.forEach(producto => {
+                            // Convertir los precios a números y manejar null o undefined
+                            const precioAntes = producto.ofert_price ? parseFloat(producto.ofert_price).toFixed(2) : '0.00';
+                            const precioAhora = producto.ofert_price_now ? parseFloat(producto.ofert_price_now).toFixed(2) : '0.00';
+                            const imageUrl = producto.ofert_image_url || '/path/to/default/image.jpg'; // URL por defecto si no hay imagen
+        
+                            const productHTML = `
+                                <div class="productoCartasOferta">
+                                    <img src="${imageUrl}" alt="${producto.ofert_product_name}" class="imagenOferta">
+                                    <div class="p-4">
+                                        <h3 class="tituloOrdenadorOferta">${producto.ofert_product_name}</h3>
+                                        <p class="descripcionRapidaOferta">${producto.ofert_description}</p>
+                                        <p class="descripcionComponentesOferta"><strong>Componentes:</strong> ${producto.ofert_components}</p>
+                                        <div class="divBtnOferta">
+                                            <span class="precioOfertaAntes">Antes: $${precioAntes}</span>
+                                            <span class="precioOfertaDespues" id="precioOferta">Ahora: $${precioAhora}</span>
+                                            <button class="btnComprarOferta" data-product="${producto.ofert_product_name}" data-price="${precioAhora}">Comprar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            divSeccionProductosOferta.insertAdjacentHTML('beforeend', productHTML);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error al obtener los productos en oferta:', error);
+                    });
+            } else {
+                console.log('El contenedor de productos en oferta no se encuentra en el HTML.');
+            }
+            
             if (contenedorProductos) {
                 productos.forEach(producto => {
                     const imageUrl = producto.image_url || '/path/to/default/image.jpg';
