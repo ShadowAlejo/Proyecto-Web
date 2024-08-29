@@ -473,8 +473,8 @@ app.post('/save-invoice', (req, res) => {
             const productId = ids.productId || null;
             const ofertProductId = ids.ofertProductId || null;
 
-            // Si es una carta estática, se permite la inserción sin un ID
-            if (ids.staticProduct || productId || ofertProductId) {
+            // Se realiza la inserción solo si se tiene un productId o ofertProductId válido
+            if (productId || ofertProductId) {
                 connection.query(query, [user_id, productId, item.quantity, ofertProductId], (err, result) => {
                     if (err) {
                         hasError = true;
@@ -486,8 +486,11 @@ app.post('/save-invoice', (req, res) => {
                         res.status(200).json({ success: true, message: 'Factura guardada exitosamente.' });
                     }
                 });
-            } else if (processedItems === cart.length) {
-                res.status(500).json({ success: false, message: 'No se pudo encontrar el ID de algunos productos.' });
+            } else {
+                console.warn('Producto no insertado debido a la falta de ID válido:', item.product);
+                if (processedItems === cart.length && !hasError) {
+                    res.status(400).json({ success: false, message: 'Uno o más productos no tienen un ID válido.' });
+                }
             }
         });
     });
