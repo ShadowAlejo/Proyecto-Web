@@ -277,16 +277,30 @@ function updateNavForLoggedInUser(user) {
     }
 }
 
+
+// Manejador para el botón de cerrar sesión
+const logoutNav = document.getElementById('logoutNav');
+if (logoutNav) {
+    logoutNav.addEventListener('click', (event) => {
+        event.preventDefault();
+        logoutUser();
+    });
+}
+
 // Función para cerrar la sesión del usuario
 function logoutUser() {
     fetch('/logout', { method: 'POST' })
         .then(response => {
             if (response.ok) {
+                // Redirige al usuario a la página de inicio de sesión
                 window.location.href = '/HTML/login.html';
+            } else {
+                showNotification('Error al cerrar la sesión. Intenta de nuevo.', 'error');
             }
         })
         .catch(error => {
             console.error('Error al cerrar la sesión:', error);
+            showNotification('Error al cerrar la sesión. Intenta de nuevo.', 'error');
         });
 }
 
