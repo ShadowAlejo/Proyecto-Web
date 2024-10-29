@@ -27,12 +27,14 @@ function validateFieldsAndSubmitForm() {
     const emailElement = document.getElementById('email');
     const subjectElement = document.getElementById('asunto');
     const messageElement = document.getElementById('mensaje');
+    const telefonoElement = document.getElementById('telefono');
     const dateElement = document.getElementById('fecha');
 
     const username = usernameElement.value.trim();
     const email = emailElement.value.trim();
     const subject = subjectElement.value.trim();
     const message = messageElement.value.trim();
+    const telefono = telefonoElement.value.trim();
     const date = dateElement.value.trim();
 
     // Validaciones básicas
@@ -54,6 +56,11 @@ function validateFieldsAndSubmitForm() {
 
     if (message === '') {
         document.getElementById('messageError').textContent = 'El mensaje es obligatorio';
+        valid = false;
+    }
+
+    if (telefono === '') {
+        document.getElementById('messageError').textContent = 'El telefono es obligatorio';
         valid = false;
     }
 
@@ -132,6 +139,7 @@ function GenerarContactoPDF() {
     const email = document.getElementById('email').value.trim();
     const asunto = document.getElementById('asunto').value.trim();
     const mensaje = document.getElementById('mensaje').value.trim();
+    const telefono = document.getElementById('telefono').value.trim();
     const fecha = document.getElementById('fecha').value.trim();
 
     const { jsPDF } = window.jspdf;
@@ -151,6 +159,8 @@ function GenerarContactoPDF() {
     doc.text(20, y, `Fecha: ${fecha}`);
     y += 10;
     doc.text(20, y, `Asunto: ${asunto}`);
+    y += 10;
+    doc.text(20, y, `Telefono: ${telefono}`);
     y += 10;
     doc.text(20, y, `Mensaje: ${mensaje}`);
     y += 10;

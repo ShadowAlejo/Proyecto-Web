@@ -218,10 +218,10 @@ app.get('/get-products', (req, res) => {
 
 // Ruta para manejar el formulario con la imagen
 app.post('/add-product', (req, res) => {
-    const { product_name, description, price, stock, image_url, components } = req.body;
-
-    const query = `INSERT INTO products (product_name, description, price, stock, image_url, components) VALUES (?, ?, ?, ?, ?, ?)`;
-    connection.query(query, [product_name, description, price, stock, image_url, components], (err, result) => {
+    const { product_name, description, price, stock, image_url, components, estado } = req.body;
+    console.log("Ingreso");
+    const query = `INSERT INTO products (product_name, description, price, stock, image_url, components, estado) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    connection.query(query, [product_name, description, price, stock, image_url, components, '1'], (err, result) => {
         if (err) {
             console.error('Error al agregar el producto:', err);
             return res.status(500).send('Error al agregar el producto.');
